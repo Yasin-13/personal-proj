@@ -37,9 +37,9 @@ function CommonForm({
                 [getControlItem.name]: event.target.value,
               })
             }
+            className="w-full px-4 py-2 text-lg rounded-lg bg-amber-50 border-2 border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-amber-900 placeholder-amber-400 transition-all duration-200"
           />
         );
-
         break;
       case "select":
         element = (
@@ -52,21 +52,20 @@ function CommonForm({
             }
             value={value}
           >
-            <SelectTrigger className="w-full">
+            <SelectTrigger className="w-full px-4 py-2 text-lg rounded-lg bg-amber-50 border-2 border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-amber-900 placeholder-amber-400 transition-all duration-200">
               <SelectValue placeholder={getControlItem.label} />
             </SelectTrigger>
-            <SelectContent>
-              {getControlItem.options && getControlItem.options.length > 0
-                ? getControlItem.options.map((optionItem) => (
-                    <SelectItem key={optionItem.id} value={optionItem.id}>
-                      {optionItem.label}
-                    </SelectItem>
-                  ))
-                : null}
+            <SelectContent className="bg-amber-50 text-amber-900 border-amber-300">
+              {getControlItem.options &&
+                getControlItem.options.length > 0 &&
+                getControlItem.options.map((optionItem) => (
+                  <SelectItem key={optionItem.id} value={optionItem.id}>
+                    {optionItem.label}
+                  </SelectItem>
+                ))}
             </SelectContent>
           </Select>
         );
-
         break;
       case "textarea":
         element = (
@@ -81,9 +80,9 @@ function CommonForm({
                 [getControlItem.name]: event.target.value,
               })
             }
+            className="w-full px-4 py-2 text-lg  rounded-lg bg-amber-50 border-2 border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-amber-900 placeholder-amber-400 transition-all duration-200"
           />
         );
-
         break;
 
       default:
@@ -100,6 +99,7 @@ function CommonForm({
                 [getControlItem.name]: event.target.value,
               })
             }
+            className="w-full px-4 py-2 text-lg rounded-lg bg-amber-50 border-2 border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-amber-900 placeholder-amber-400 transition-all duration-200"
           />
         );
         break;
@@ -110,15 +110,19 @@ function CommonForm({
 
   return (
     <form onSubmit={onSubmit}>
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-4">
         {formControls.map((controlItem) => (
           <div className="grid w-full gap-1.5" key={controlItem.name}>
-            <Label className="mb-1">{controlItem.label}</Label>
+            <Label className="mb-1  text-amber-800">{controlItem.label}</Label>
             {renderInputsByComponentType(controlItem)}
           </div>
         ))}
       </div>
-      <Button disabled={isBtnDisabled} type="submit" className="mt-2 w-full">
+      <Button
+        disabled={isBtnDisabled}
+        type="submit"
+        className="mt-4 w-full bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-white font-bold py-3 px-6 text-lg rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:ring-offset-2 transform hover:-translate-y-1 hover:shadow-md"
+      >
         {buttonText || "Submit"}
       </Button>
     </form>

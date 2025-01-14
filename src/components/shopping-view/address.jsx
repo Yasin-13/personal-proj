@@ -109,11 +109,9 @@ function Address({ setCurrentSelectedAddress, selectedId }) {
     dispatch(fetchAllAddresses(user?.id));
   }, [dispatch]);
 
-  console.log(addressList, "addressList");
-
   return (
-    <Card>
-      <div className="mb-5 p-3 grid grid-cols-1 sm:grid-cols-2  gap-2">
+    <Card className="border-amber-300 rounded-lg bg-gradient-to-r from-amber-200 via-amber-100 to-yellow-200 shadow-lg">
+      <div className="mb-5 p-3 grid grid-cols-1 sm:grid-cols-2 gap-2">
         {addressList && addressList.length > 0
           ? addressList.map((singleAddressItem) => (
               <AddressCard
@@ -126,12 +124,12 @@ function Address({ setCurrentSelectedAddress, selectedId }) {
             ))
           : null}
       </div>
-      <CardHeader>
-        <CardTitle>
+      <CardHeader className="bg-amber-200 p-3">
+        <CardTitle className="text-amber-900">
           {currentEditedId !== null ? "Edit Address" : "Add New Address"}
         </CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3">
+      <CardContent className="space-y-3 p-4">
         <CommonForm
           formControls={addressFormControls}
           formData={formData}
@@ -139,6 +137,7 @@ function Address({ setCurrentSelectedAddress, selectedId }) {
           buttonText={currentEditedId !== null ? "Edit" : "Add"}
           onSubmit={handleManageAddress}
           isBtnDisabled={!isFormValid()}
+          buttonClassName="bg-gradient-to-r from-amber-500 to-yellow-500 text-white font-medium hover:from-amber-600 hover:to-yellow-600 focus:outline-none focus:ring-2 focus:ring-amber-500 transition-all duration-200"
         />
       </CardContent>
     </Card>

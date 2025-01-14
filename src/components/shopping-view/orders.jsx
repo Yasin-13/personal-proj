@@ -21,23 +21,34 @@ import { Badge } from "../ui/badge";
 
 function ShoppingOrders() {
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
+  const [currentOrderId, setCurrentOrderId] = useState(null);
   const dispatch = useDispatch();
   const { user } = useSelector((state) => state.auth);
   const { orderList, orderDetails } = useSelector((state) => state.shopOrder);
 
   function handleFetchOrderDetails(getId) {
+    setCurrentOrderId(getId);
     dispatch(getOrderDetails(getId));
   }
 
   useEffect(() => {
+    if (currentOrderId) {
+      setOpenDetailsDialog(true);
+    }
+  }, [currentOrderId]);
+
+  useEffect(() => {
     dispatch(getAllOrdersByUserId(user?.id));
-  }, [dispatch]);
+  }, [dispatch, user?.id]);
 
   useEffect(() => {
     if (orderDetails !== null) setOpenDetailsDialog(true);
   }, [orderDetails]);
 
-  console.log(orderDetails, "orderDetails");
+  const handleCloseDialog = () => {
+    setOpenDetailsDialog(false);
+    dispatch(resetOrderDetails());
+  };
 
   return (
     <Card>
@@ -60,7 +71,7 @@ function ShoppingOrders() {
           <TableBody>
             {orderList && orderList.length > 0
               ? orderList.map((orderItem) => (
-                  <TableRow>
+                  <TableRow key={orderItem?._id}>
                     <TableCell>{orderItem?._id}</TableCell>
                     <TableCell>{orderItem?.orderDate.split("T")[0]}</TableCell>
                     <TableCell>
@@ -78,22 +89,11 @@ function ShoppingOrders() {
                     </TableCell>
                     <TableCell>${orderItem?.totalAmount}</TableCell>
                     <TableCell>
-                      <Dialog
-                        open={openDetailsDialog}
-                        onOpenChange={() => {
-                          setOpenDetailsDialog(false);
-                          dispatch(resetOrderDetails());
-                        }}
+                      <Button
+                        onClick={() => handleFetchOrderDetails(orderItem?._id)}
                       >
-                        <Button
-                          onClick={() =>
-                            handleFetchOrderDetails(orderItem?._id)
-                          }
-                        >
-                          View Details
-                        </Button>
-                        <ShoppingOrderDetailsView orderDetails={orderDetails} />
-                      </Dialog>
+                        View Details
+                      </Button>
                     </TableCell>
                   </TableRow>
                 ))
@@ -101,6 +101,13 @@ function ShoppingOrders() {
           </TableBody>
         </Table>
       </CardContent>
+
+      {/* Dialog to show order details */}
+      {orderDetails && (
+        <Dialog open={openDetailsDialog} onOpenChange={handleCloseDialog}>
+          <ShoppingOrderDetailsView orderDetails={orderDetails} />
+        </Dialog>
+      )}
     </Card>
   );
 }

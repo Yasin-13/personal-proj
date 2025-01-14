@@ -54,7 +54,7 @@ function MenuItems() {
       {shoppingViewHeaderMenuItems.map((menuItem) => (
         <Label
           onClick={() => handleNavigate(menuItem)}
-          className="text-sm font-medium cursor-pointer"
+          className="text-sm font-medium cursor-pointer text-amber-700 hover:text-amber-800 transition-all duration-200"
           key={menuItem.id}
         >
           {menuItem.label}
@@ -79,8 +79,6 @@ function HeaderRightContent() {
     dispatch(fetchCartItems(user?.id));
   }, [dispatch]);
 
-  console.log(cartItems, "sangam");
-
   return (
     <div className="flex lg:items-center lg:flex-row flex-col gap-4">
       <Sheet open={openCartSheet} onOpenChange={() => setOpenCartSheet(false)}>
@@ -88,10 +86,10 @@ function HeaderRightContent() {
           onClick={() => setOpenCartSheet(true)}
           variant="outline"
           size="icon"
-          className="relative"
+          className="relative text-amber-800 border-amber-300 hover:text-amber-700 focus:ring-amber-500"
         >
           <ShoppingCart className="w-6 h-6" />
-          <span className="absolute top-[-5px] right-[2px] font-bold text-sm">
+          <span className="absolute top-[-5px] right-[2px] font-bold text-sm text-amber-600">
             {cartItems?.items?.length || 0}
           </span>
           <span className="sr-only">User cart</span>
@@ -108,21 +106,32 @@ function HeaderRightContent() {
 
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Avatar className="bg-black">
-            <AvatarFallback className="bg-black text-white font-extrabold">
+          <Avatar className="bg-amber-600">
+            <AvatarFallback className="bg-amber-600 text-white font-extrabold">
               {user?.userName[0].toUpperCase()}
             </AvatarFallback>
           </Avatar>
         </DropdownMenuTrigger>
-        <DropdownMenuContent side="right" className="w-56">
-          <DropdownMenuLabel>Logged in as {user?.userName}</DropdownMenuLabel>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={() => navigate("/shop/account")}>
+        <DropdownMenuContent
+          side="right"
+          className="w-56 bg-gradient-to-b from-amber-200 to-yellow-200"
+        >
+          <DropdownMenuLabel className="text-amber-900">
+            Logged in as {user?.userName}
+          </DropdownMenuLabel>
+          <DropdownMenuSeparator className="border-amber-300" />
+          <DropdownMenuItem
+            onClick={() => navigate("/shop/account")}
+            className="hover:bg-amber-300 text-amber-800"
+          >
             <UserCog className="mr-2 h-4 w-4" />
             Account
           </DropdownMenuItem>
-          <DropdownMenuSeparator />
-          <DropdownMenuItem onClick={handleLogout}>
+          <DropdownMenuSeparator className="border-amber-300" />
+          <DropdownMenuItem
+            onClick={handleLogout}
+            className="hover:bg-amber-300 text-amber-800"
+          >
             <LogOut className="mr-2 h-4 w-4" />
             Logout
           </DropdownMenuItem>
@@ -136,16 +145,19 @@ function ShoppingHeader() {
   const { isAuthenticated } = useSelector((state) => state.auth);
 
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-background">
+    <header className="sticky top-0 z-40 w-full border-b bg-gradient-to-b from-amber-200 via-amber-100 to-yellow-200">
       <div className="flex h-16 items-center justify-between px-4 md:px-6">
-        <Link to="/shop/home" className="flex items-center gap-2">
+        <Link
+          to="/shop/home"
+          className="flex items-center gap-2 text-amber-800"
+        >
           <HousePlug className="h-6 w-6" />
           <span className="font-bold">Ecommerce</span>
         </Link>
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="outline" size="icon" className="lg:hidden">
-              <Menu className="h-6 w-6" />
+              <Menu className="h-6 w-6 text-amber-700" />
               <span className="sr-only">Toggle header menu</span>
             </Button>
           </SheetTrigger>

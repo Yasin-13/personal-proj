@@ -18,94 +18,74 @@ function CommonForm({
   buttonText,
   isBtnDisabled,
 }) {
-  function renderInputsByComponentType(getControlItem) {
-    let element = null;
-    const value = formData[getControlItem.name] || "";
+  const handleInputChange = (name, value) => {
+    setFormData(prev => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
 
-    switch (getControlItem.componentType) {
+  function renderInputsByComponentType(controlItem) {
+    const value = formData[controlItem.name] || "";
+
+    switch (controlItem.componentType) {
       case "input":
-        element = (
+        return (
           <Input
-            name={getControlItem.name}
-            placeholder={getControlItem.placeholder}
-            id={getControlItem.name}
-            type={getControlItem.type}
+            name={controlItem.name}
+            placeholder={controlItem.placeholder}
+            id={controlItem.name}
+            type={controlItem.type}
             value={value}
-            onChange={(event) =>
-              setFormData({
-                ...formData,
-                [getControlItem.name]: event.target.value,
-              })
-            }
+            onChange={(e) => handleInputChange(controlItem.name, e.target.value)}
             className="w-full px-4 py-2 text-lg rounded-lg bg-amber-50 border-2 border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-amber-900 placeholder-amber-400 transition-all duration-200"
           />
         );
-        break;
+
       case "select":
-        element = (
+        return (
           <Select
-            onValueChange={(value) =>
-              setFormData({
-                ...formData,
-                [getControlItem.name]: value,
-              })
-            }
+            onValueChange={(value) => handleInputChange(controlItem.name, value)}
             value={value}
           >
             <SelectTrigger className="w-full px-4 py-2 text-lg rounded-lg bg-amber-50 border-2 border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-amber-900 placeholder-amber-400 transition-all duration-200">
-              <SelectValue placeholder={getControlItem.label} />
+              <SelectValue placeholder={controlItem.label} />
             </SelectTrigger>
             <SelectContent className="bg-amber-50 text-amber-900 border-amber-300">
-              {getControlItem.options &&
-                getControlItem.options.length > 0 &&
-                getControlItem.options.map((optionItem) => (
-                  <SelectItem key={optionItem.id} value={optionItem.id}>
-                    {optionItem.label}
-                  </SelectItem>
-                ))}
+              {controlItem.options.map((optionItem) => (
+                <SelectItem key={optionItem.id} value={optionItem.id}>
+                  {optionItem.label}
+                </SelectItem>
+              ))}
             </SelectContent>
           </Select>
         );
-        break;
-      case "textarea":
-        element = (
-          <Textarea
-            name={getControlItem.name}
-            placeholder={getControlItem.placeholder}
-            id={getControlItem.id}
-            value={value}
-            onChange={(event) =>
-              setFormData({
-                ...formData,
-                [getControlItem.name]: event.target.value,
-              })
-            }
-            className="w-full px-4 py-2 text-lg  rounded-lg bg-amber-50 border-2 border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-amber-900 placeholder-amber-400 transition-all duration-200"
-          />
-        );
-        break;
 
-      default:
-        element = (
-          <Input
-            name={getControlItem.name}
-            placeholder={getControlItem.placeholder}
-            id={getControlItem.name}
-            type={getControlItem.type}
+      case "textarea":
+        return (
+          <Textarea
+            name={controlItem.name}
+            placeholder={controlItem.placeholder}
+            id={controlItem.id}
             value={value}
-            onChange={(event) =>
-              setFormData({
-                ...formData,
-                [getControlItem.name]: event.target.value,
-              })
-            }
+            onChange={(e) => handleInputChange(controlItem.name, e.target.value)}
             className="w-full px-4 py-2 text-lg rounded-lg bg-amber-50 border-2 border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-amber-900 placeholder-amber-400 transition-all duration-200"
           />
         );
-        break;
-    }
 
-    return element;
+      default:
+        return (
+          <Input
+            name={controlItem.name}
+            placeholder={controlItem.placeholder}
+            id={controlItem.name}
+            type={controlItem.type}
+            value={value}
+            onChange={(e) => handleInputChange(controlItem.name, e.target.value)}
+            className="w-full px-4 py-2 text-lg rounded-lg bg-amber-50 border-2 border-amber-300 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent text-amber-900 placeholder-amber-400 transition-all duration-200"
+          />
+        );
+    }
   }
 
   return (
@@ -113,7 +93,7 @@ function CommonForm({
       <div className="flex flex-col gap-4">
         {formControls.map((controlItem) => (
           <div className="grid w-full gap-1.5" key={controlItem.name}>
-            <Label className="mb-1  text-amber-800">{controlItem.label}</Label>
+            <Label className="mb-1 text-amber-800">{controlItem.label}</Label>
             {renderInputsByComponentType(controlItem)}
           </div>
         ))}

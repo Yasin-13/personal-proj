@@ -25,16 +25,13 @@ function UserCartItemsContent({ cartItem }) {
         );
         const getTotalStock = productList[getCurrentProductIndex].totalStock;
 
-        console.log(getCurrentProductIndex, getTotalStock, "getTotalStock");
-
         if (indexOfCurrentCartItem > -1) {
           const getQuantity = getCartItems[indexOfCurrentCartItem].quantity;
           if (getQuantity + 1 > getTotalStock) {
             toast({
-              title: `Only ${getQuantity} quantity can be added for this item`,
+              title: `Only ${getTotalStock} quantity can be added for this item`,
               variant: "destructive",
             });
-
             return;
           }
         }
@@ -72,18 +69,18 @@ function UserCartItemsContent({ cartItem }) {
   }
 
   return (
-    <div className="flex items-center space-x-4">
+    <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-amber-200 via-amber-100 to-yellow-200 rounded-lg shadow-md">
       <img
         src={cartItem?.image}
         alt={cartItem?.title}
-        className="w-20 h-20 rounded object-cover"
+        className="w-20 h-20 rounded object-cover border border-amber-300"
       />
       <div className="flex-1">
-        <h3 className="font-extrabold">{cartItem?.title}</h3>
+        <h3 className="font-extrabold text-amber-900">{cartItem?.title}</h3>
         <div className="flex items-center gap-2 mt-1">
           <Button
             variant="outline"
-            className="h-8 w-8 rounded-full"
+            className="h-8 w-8 rounded-full text-amber-700 border-amber-300 hover:bg-amber-100"
             size="icon"
             disabled={cartItem?.quantity === 1}
             onClick={() => handleUpdateQuantity(cartItem, "minus")}
@@ -91,20 +88,22 @@ function UserCartItemsContent({ cartItem }) {
             <Minus className="w-4 h-4" />
             <span className="sr-only">Decrease</span>
           </Button>
-          <span className="font-semibold">{cartItem?.quantity}</span>
+          <span className="font-semibold text-amber-800">
+            {cartItem?.quantity}
+          </span>
           <Button
             variant="outline"
-            className="h-8 w-8 rounded-full"
+            className="h-8 w-8 rounded-full text-amber-700 border-amber-300 hover:bg-amber-100"
             size="icon"
             onClick={() => handleUpdateQuantity(cartItem, "plus")}
           >
             <Plus className="w-4 h-4" />
-            <span className="sr-only">Decrease</span>
+            <span className="sr-only">Increase</span>
           </Button>
         </div>
       </div>
       <div className="flex flex-col items-end">
-        <p className="font-semibold">
+        <p className="font-semibold text-amber-900">
           $
           {(
             (cartItem?.salePrice > 0 ? cartItem?.salePrice : cartItem?.price) *
@@ -113,7 +112,7 @@ function UserCartItemsContent({ cartItem }) {
         </p>
         <Trash
           onClick={() => handleCartItemDelete(cartItem)}
-          className="cursor-pointer mt-1"
+          className="cursor-pointer mt-1 text-amber-700 hover:text-amber-900"
           size={20}
         />
       </div>

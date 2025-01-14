@@ -26,31 +26,33 @@ function ShoppingProductTile({
               {`Only ${product?.totalStock} items left`}
             </Badge>
           ) : product?.salePrice > 0 ? (
-            <Badge className="absolute top-2 left-2 bg-red-500 hover:bg-red-600">
+            <Badge className="absolute top-2 left-2 bg-yellow-500 hover:bg-yellow-600">
               Sale
             </Badge>
           ) : null}
         </div>
         <CardContent className="p-4">
-          <h2 className="text-xl font-bold mb-2">{product?.title}</h2>
+          <h2 className="text-xl font-extrabold text-amber-800 mb-2">
+            {product?.title}
+          </h2>
           <div className="flex justify-between items-center mb-2">
-            <span className="text-[16px] text-muted-foreground">
+            <span className="text-[16px] text-amber-600">
               {categoryOptionsMap[product?.category]}
             </span>
-            <span className="text-[16px] text-muted-foreground">
+            <span className="text-[16px] text-amber-600">
               {brandOptionsMap[product?.brand]}
             </span>
           </div>
           <div className="flex justify-between items-center mb-2">
             <span
               className={`${
-                product?.salePrice > 0 ? "line-through" : ""
-              } text-lg font-semibold text-primary`}
+                product?.salePrice > 0 ? "line-through text-amber-500" : "text-amber-800"
+              } text-lg font-semibold`}
             >
               ${product?.price}
             </span>
             {product?.salePrice > 0 ? (
-              <span className="text-lg font-semibold text-primary">
+              <span className="text-lg font-semibold text-amber-700">
                 ${product?.salePrice}
               </span>
             ) : null}
@@ -65,7 +67,7 @@ function ShoppingProductTile({
         ) : (
           <Button
             onClick={() => handleAddtoCart(product?._id, product?.totalStock)}
-            className="w-full"
+            className="w-full bg-amber-500 hover:bg-amber-600 text-white"
           >
             Add to cart
           </Button>

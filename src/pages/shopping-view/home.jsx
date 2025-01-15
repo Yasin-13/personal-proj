@@ -1,4 +1,6 @@
 import { Button } from "@/components/ui/button";
+import  SimpleSlider  from "@/pages/addonshome/SimpleSlider";
+
 // import bannerOne from "../../assets/banner-1.webp";
 // import bannerTwo from "../../assets/banner-2.webp";
 // import bannerThree from "../../assets/banner-3.webp";
@@ -137,14 +139,14 @@ function ShoppingHome() {
       </div>
 
       <div className="container mx-auto px-4">
-
+            <SimpleSlider/>
       </div>
 
      
 
       <section className="py-12">
         <div className="container mx-auto px-4">
-          <h2 className="text-3xl font-bold text-amber-800 text-center mb-8">
+          <h2 className="text-4xl font-serif text-center mb-8 text-amber-800">
             MOST LOVED
           </h2>
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">

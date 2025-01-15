@@ -151,7 +151,7 @@ function ShoppingHeader() {
   return (
     <header className="sticky top-0 z-40 w-full bg-gradient-to-b from-amber-200 via-amber-100 to-yellow-200">
       {/* Marquee Section */}
-      <div className="w-full bg-amber-1000 text-white text-sm py-2 overflow-hidden">
+      <div className="w-full bg-amber-900 text-white text-sm py-2 overflow-hidden">
         <div className="marquee-content flex animate-marquee">
         <span className="mx-4">Flat 40% Off on Kurtas!</span>
     <span className="mx-4">Free Shipping on Orders Over ₹500!</span>

@@ -67,3 +67,26 @@
     @apply bg-background text-foreground;
   }
 }
+
+
+/* Add this to your CSS file or within a <style> tag */
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+.marquee-content {
+  display: flex;
+  white-space: nowrap;
+  animation: marquee 30s linear infinite;
+}
+
+.marquee-content span {
+  padding: 0 20px;
+  display: inline-block;
+}

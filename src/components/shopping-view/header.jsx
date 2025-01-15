@@ -1,4 +1,5 @@
-import { HousePlug, LogOut, Menu, ShoppingCart, UserCog } from "lucide-react";
+import {LogOut, Menu, ShoppingCart, UserCog } from "lucide-react";
+import NRlogo1 from  '@/assets/NRLOGO1.jpg'
 import {
   Link,
   useLocation,
@@ -29,6 +30,11 @@ function MenuItems() {
   const location = useLocation();
   const [searchParams, setSearchParams] = useSearchParams();
 
+  // Filter menu items to include only specific buttons
+  const filteredMenuItems = shoppingViewHeaderMenuItems.filter((item) =>
+    ["home", "products", "search"].includes(item.id)
+  );
+
   function handleNavigate(getCurrentMenuItem) {
     sessionStorage.removeItem("filters");
     const currentFilter =
@@ -51,7 +57,7 @@ function MenuItems() {
 
   return (
     <nav className="flex flex-col mb-3 lg:mb-0 lg:items-center gap-6 lg:flex-row">
-      {shoppingViewHeaderMenuItems.map((menuItem) => (
+      {filteredMenuItems.map((menuItem) => (
         <Label
           onClick={() => handleNavigate(menuItem)}
           className="text-sm font-medium cursor-pointer text-amber-700 hover:text-amber-800 transition-all duration-200"
@@ -142,18 +148,34 @@ function HeaderRightContent() {
 }
 
 function ShoppingHeader() {
-  const { isAuthenticated } = useSelector((state) => state.auth);
-
   return (
-    <header className="sticky top-0 z-40 w-full border-b bg-gradient-to-b from-amber-200 via-amber-100 to-yellow-200">
-      <div className="flex h-16 items-center justify-between px-4 md:px-6">
+    <header className="sticky top-0 z-40 w-full bg-gradient-to-b from-amber-200 via-amber-100 to-yellow-200">
+      {/* Marquee Section */}
+      <div className="w-full bg-amber-800 text-white text-sm py-2 overflow-hidden">
+        <div className="marquee-content flex animate-marquee">
+        <span className="mx-4">Flat 40% Off on Kurtas!</span>
+    <span className="mx-4">Free Shipping on Orders Over ₹500!</span>
+    <span className="mx-4">New Arrivals in Ethnic Wear!</span>
+    <span className="mx-4">Shop Now and Get an Extra 10% Off!</span>
+    <span className="mx-4">Limited Time Offer - Don't Miss Out!</span>
+        </div>
+      </div>
+
+      {/* Navbar Section */}
+      <div className="flex h-16 items-center justify-between px-4 md:px-6 border-b">
+        {/* Logo Section */}
         <Link
           to="/shop/home"
-          className="flex items-center gap-2 text-amber-800"
+          className="flex items-center text-amber-800"
         >
-          <HousePlug className="h-6 w-6" />
-          <span className="font-bold">Ecommerce</span>
+          <img
+            src={NRlogo1}
+            alt="Ecommerce Logo"
+            className="h-auto w-auto max-w-[200px] max-h-[55px] object-contain mix-blend-multiply"
+          />
         </Link>
+
+        {/* Header Menu */}
         <Sheet>
           <SheetTrigger asChild>
             <Button variant="outline" size="icon" className="lg:hidden">
@@ -170,6 +192,7 @@ function ShoppingHeader() {
           <MenuItems />
         </div>
 
+        {/* Right Section (Cart and Account) */}
         <div className="hidden lg:block">
           <HeaderRightContent />
         </div>

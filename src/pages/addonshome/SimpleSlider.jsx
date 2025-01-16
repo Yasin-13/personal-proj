@@ -3,14 +3,22 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
+import Chikankari from "./sliderimages/chikankari.jpg"
+import BrocadeWeave  from "./sliderimages/weddingsherwani.jpg"
+import DesignerKurta from "./sliderimages/designerkurta.jpg"
+import WeddingSherwani from "./sliderimages/weddingsherwani2.jpg"
+import DhotiKurta from "./sliderimages/dhotikurta.jpg"
+import NehruJacket from "./sliderimages/nehrujacket.jpg"
+
+
 
 const products = [
-  { id: 1, name: "Chikankari Kurta", image: "/placeholder.svg?height=600&width=400", category: "Men's Festive Wear" },
-  { id: 2, name: "Brocade Weave Jacket", image: "/placeholder.svg?height=600&width=400", category: "Men's Festive Wear" },
-  { id: 3, name: "Designer Kurta", image: "/placeholder.svg?height=600&width=400", category: "Men's Festive Wear" },
-  { id: 4, name: "Wedding Sherwani", image: "/placeholder.svg?height=600&width=400", category: "Men's Wedding Wear" },
-  { id: 5, name: "Classic Dhoti Kurta", image: "/placeholder.svg?height=600&width=400", category: "Men's Ethnic Essentials" },
-  { id: 6, name: "Silk Nehru Jacket", image: "/placeholder.svg?height=600&width=400", category: "Men's Wedding Wear" },
+  { id: 1, name: "Chikankari Kurta", image: Chikankari, category: "Men's Festive Wear" },
+  { id: 2, name: "Brocade Weave Jacket", image: BrocadeWeave, category: "Men's Festive Wear" },
+  { id: 3, name: "Designer Kurta", image: DesignerKurta, category: "Men's Festive Wear" },
+  { id: 4, name: "Wedding Sherwani", image: WeddingSherwani, category: "Men's Wedding Wear" },
+  { id: 5, name: "Classic Dhoti Kurta", image: DhotiKurta, category: "Men's Ethnic Essentials" },
+  { id: 6, name: "Silk Nehru Jacket", image: NehruJacket, category: "Men's Wedding Wear" },
 ];
 
 const SimpleSlider = () => {

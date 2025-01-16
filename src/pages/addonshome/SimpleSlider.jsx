@@ -3,12 +3,12 @@
 import { useState } from "react";
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
-import Chikankari from "./sliderimages/chikankari.jpg"
-import BrocadeWeave  from "./sliderimages/weddingsherwani.jpg"
-import DesignerKurta from "./sliderimages/designerkurta.jpg"
-import WeddingSherwani from "./sliderimages/weddingsherwani2.jpg"
-import DhotiKurta from "./sliderimages/dhotikurta.jpg"
-import NehruJacket from "./sliderimages/nehrujacket.jpg"
+import Chikankari from "./sliderimages/chikankari.jpg";
+import BrocadeWeave  from "./sliderimages/weddingsherwani.jpg";
+import DesignerKurta from "./sliderimages/designerkurta.jpg";
+import WeddingSherwani from "./sliderimages/weddingsherwani2.jpg";
+import DhotiKurta from "./sliderimages/dhotikurta.jpg";
+import NehruJacket from "./sliderimages/nehrujacket.jpg";
 
 
 

@@ -3,6 +3,8 @@ import  SimpleSlider  from "@/pages/addonshome/SimpleSlider";
 import  ReviewCarousel  from "@/pages/addonshome/ReviewCarousel";
 import  Features  from "@/pages/addonshome/Features";
 import  FeaturesComponent  from "@/pages/addonshome/FeaturesComponent";
+import  KurtaPromo  from "@/pages/addonshome/KurtaPromo";
+
 
 
   
@@ -147,6 +149,7 @@ function ShoppingHome() {
      
             <SimpleSlider/>
             <Features/>
+            <KurtaPromo/>
             <ReviewCarousel/>
             <FeaturesComponent/>
 

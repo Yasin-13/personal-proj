@@ -1,5 +1,11 @@
 import { Button } from "@/components/ui/button";
 import  SimpleSlider  from "@/pages/addonshome/SimpleSlider";
+import  ReviewCarousel  from "@/pages/addonshome/ReviewCarousel";
+import  Features  from "@/pages/addonshome/Features";
+import  FeaturesComponent  from "@/pages/addonshome/FeaturesComponent";
+
+
+  
 
 // import bannerOne from "../../assets/banner-1.webp";
 // import bannerTwo from "../../assets/banner-2.webp";
@@ -138,9 +144,13 @@ function ShoppingHome() {
         </Button>
       </div>
 
-      <div className="container mx-auto px-4">
+     
             <SimpleSlider/>
-      </div>
+            <Features/>
+            <ReviewCarousel/>
+            <FeaturesComponent/>
+
+    
 
      
 

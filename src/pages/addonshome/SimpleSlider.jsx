@@ -1,16 +1,16 @@
 "use client";
 
 import { useState } from "react";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { Button } from "@/components/ui/button";
 
 const products = [
-  { id: 1, name: "Chikankari Kurta", image: "/placeholder.svg?height=600&width=400", category: "Men's Ethnic" },
-  { id: 2, name: "Cocktail Saree", image: "/placeholder.svg?height=600&width=400", category: "Women's Ethnic" },
-  { id: 3, name: "Brocade Weave Jacket", image: "/placeholder.svg?height=600&width=400", category: "Men's Ethnic" },
-  { id: 4, name: "Designer Kurta", image: "/placeholder.svg?height=600&width=400", category: "Men's Collection" },
-  { id: 5, name: "Embroidered Saree", image: "/placeholder.svg?height=600&width=400", category: "Women's Collection" },
-  { id: 6, name: "Wedding Sherwani", image: "/placeholder.svg?height=600&width=400", category: "Men's Collection" },
+  { id: 1, name: "Chikankari Kurta", image: "/placeholder.svg?height=600&width=400", category: "Men's Festive Wear" },
+  { id: 2, name: "Brocade Weave Jacket", image: "/placeholder.svg?height=600&width=400", category: "Men's Festive Wear" },
+  { id: 3, name: "Designer Kurta", image: "/placeholder.svg?height=600&width=400", category: "Men's Festive Wear" },
+  { id: 4, name: "Wedding Sherwani", image: "/placeholder.svg?height=600&width=400", category: "Men's Wedding Wear" },
+  { id: 5, name: "Classic Dhoti Kurta", image: "/placeholder.svg?height=600&width=400", category: "Men's Ethnic Essentials" },
+  { id: 6, name: "Silk Nehru Jacket", image: "/placeholder.svg?height=600&width=400", category: "Men's Wedding Wear" },
 ];
 
 const SimpleSlider = () => {
@@ -21,7 +21,24 @@ const SimpleSlider = () => {
   const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + slidesCount) % slidesCount);
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 py-12">
+    <div className="w-full max-w-[90rem] mx-auto px-4 py-12">
+      <div className="w-12 h-12 mx-auto mb-4">
+  <svg
+    viewBox="0 0 64 64"
+    xmlns="http://www.w3.org/2000/svg"
+    className="w-full h-full text-amber-500"
+  >
+    <circle cx="32" cy="32" r="28" stroke="currentColor" strokeWidth="4" fill="none" />
+    <circle cx="32" cy="32" r="20" stroke="currentColor" strokeWidth="2" fill="none" />
+    <path
+      d="M32 4 L36 16 L32 8 L28 16 Z M32 60 L36 48 L32 56 L28 48 Z 
+         M4 32 L16 36 L8 32 L16 28 Z M60 32 L48 36 L56 32 L48 28 Z"
+      fill="currentColor"
+    />
+    <circle cx="32" cy="32" r="8" fill="currentColor" />
+  </svg>
+</div>
+
       <h2 className="text-4xl font-serif text-center mb-8 text-amber-800">THE WEDDING EDIT</h2>
       <div className="relative bg-gradient-to-r from-amber-200 via-amber-100 to-yellow-200 p-8 rounded-xl">
         <div className="relative overflow-hidden">
@@ -91,3 +108,4 @@ const SimpleSlider = () => {
 };
 
 export default SimpleSlider;
+

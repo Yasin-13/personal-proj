@@ -99,6 +99,27 @@ export const addProductFormElements = [
     type: "number",
     placeholder: "Enter total stock",
   },
+  {
+    label: "Sizes and Stock",
+    name: "sizes",
+    componentType: "dynamic",
+    fields: [
+      {
+        label: "Size",
+        name: "size",
+        componentType: "input",
+        type: "text",
+        placeholder: "Enter size (e.g., S, M, L, XL)",
+      },
+      {
+        label: "Stock for Size",
+        name: "stock",
+        componentType: "input",
+        type: "number",
+        placeholder: "Enter stock for this size",
+      },
+    ],
+  },
 ];
 
 export const shoppingViewHeaderMenuItems = [

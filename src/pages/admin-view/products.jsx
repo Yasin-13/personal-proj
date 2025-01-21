@@ -24,10 +24,10 @@ const initialFormData = {
   title: "",
   description: "",
   category: "",
-  brand: "",
   price: "",
   salePrice: "",
   totalStock: "",
+  sizes: [], // Added for size-based stock
   averageReview: 0,
 };
 
@@ -47,37 +47,38 @@ function AdminProducts() {
   function onSubmit(event) {
     event.preventDefault();
 
+    const payload = {
+      ...formData,
+      image: uploadedImageUrl,
+    };
+
     currentEditedId !== null
-      ? dispatch(
-          editProduct({
-            id: currentEditedId,
-            formData,
-          })
-        ).then((data) => {
-          if (data?.payload?.success) {
-            dispatch(fetchAllProducts());
-            setFormData(initialFormData);
-            setOpenCreateProductsDialog(false);
-            setCurrentEditedId(null);
+      ? dispatch(editProduct({ id: currentEditedId, formData: payload })).then(
+          (data) => {
+            if (data?.payload?.success) {
+              dispatch(fetchAllProducts());
+              resetForm();
+            }
           }
-        })
-      : dispatch(
-          addNewProduct({
-            ...formData,
-            image: uploadedImageUrl,
-          })
-        ).then((data) => {
+        )
+      : dispatch(addNewProduct(payload)).then((data) => {
           if (data?.payload?.success) {
             dispatch(fetchAllProducts());
-            setOpenCreateProductsDialog(false);
-            setImageFile(null);
-            setFormData(initialFormData);
+            resetForm();
             toast({
               title: "Product added successfully",
               description: "Your product has been added to the inventory.",
             });
           }
         });
+  }
+
+  function resetForm() {
+    setFormData(initialFormData);
+    setImageFile(null);
+    setUploadedImageUrl("");
+    setOpenCreateProductsDialog(false);
+    setCurrentEditedId(null);
   }
 
   function handleDelete(getCurrentProductId) {
@@ -89,10 +90,38 @@ function AdminProducts() {
   }
 
   function isFormValid() {
-    return Object.keys(formData)
-      .filter((currentKey) => currentKey !== "averageReview")
-      .map((key) => formData[key] !== "")
-      .every((item) => item);
+    const isSizesValid =
+      formData.sizes.length > 0 &&
+      formData.sizes.every(
+        (size) => size.size && size.stock && Number(size.stock) > 0
+      );
+
+    return (
+      Object.keys(formData)
+        .filter(
+          (key) => !["averageReview", "sizes"].includes(key)
+        )
+        .map((key) => formData[key] !== "")
+        .every((item) => item) && isSizesValid
+    );
+  }
+
+  function handleSizeChange(index, field, value) {
+    const updatedSizes = [...formData.sizes];
+    updatedSizes[index][field] = value;
+    setFormData((prev) => ({ ...prev, sizes: updatedSizes }));
+  }
+
+  function addNewSize() {
+    setFormData((prev) => ({
+      ...prev,
+      sizes: [...prev.sizes, { size: "", stock: "" }],
+    }));
+  }
+
+  function removeSize(index) {
+    const updatedSizes = formData.sizes.filter((_, i) => i !== index);
+    setFormData((prev) => ({ ...prev, sizes: updatedSizes }));
   }
 
   useEffect(() => {
@@ -130,9 +159,7 @@ function AdminProducts() {
       <Sheet
         open={openCreateProductsDialog}
         onOpenChange={() => {
-          setOpenCreateProductsDialog(false);
-          setCurrentEditedId(null);
-          setFormData(initialFormData);
+          resetForm();
         }}
       >
         <SheetContent
@@ -162,6 +189,46 @@ function AdminProducts() {
               formControls={addProductFormElements}
               isBtnDisabled={!isFormValid()}
             />
+            {/* Dynamic size and stock input */}
+            <div className="mt-6">
+              <h4 className="text-lg font-bold text-amber-800 mb-4">
+                Sizes and Stock
+              </h4>
+              {formData.sizes.map((size, index) => (
+                <div key={index} className="flex gap-4 mb-4">
+                  <input
+                    type="text"
+                    placeholder="Size (e.g., S, M, L)"
+                    value={size.size}
+                    onChange={(e) =>
+                      handleSizeChange(index, "size", e.target.value)
+                    }
+                    className="border border-amber-500 rounded px-4 py-2"
+                  />
+                  <input
+                    type="number"
+                    placeholder="Stock"
+                    value={size.stock}
+                    onChange={(e) =>
+                      handleSizeChange(index, "stock", e.target.value)
+                    }
+                    className="border border-amber-500 rounded px-4 py-2"
+                  />
+                  <Button
+                    onClick={() => removeSize(index)}
+                    className="bg-red-500 hover:bg-red-600 text-white"
+                  >
+                    Remove
+                  </Button>
+                </div>
+              ))}
+              <Button
+                onClick={addNewSize}
+                className="bg-green-500 hover:bg-green-600 text-white"
+              >
+                Add Size
+              </Button>
+            </div>
           </div>
         </SheetContent>
       </Sheet>

@@ -5,6 +5,10 @@ import  Features  from "@/pages/addonshome/Features";
 import  FeaturesComponent  from "@/pages/addonshome/FeaturesComponent";
 import  KurtaPromo  from "@/pages/addonshome/KurtaPromo";
 import  Footer  from "@/pages/addonshome/Footer";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import { Navigation } from 'swiper/modules';
 
 
 
@@ -160,24 +164,48 @@ function ShoppingHome() {
 
      
 
-      <section className="py-12">
-        <div className="container mx-auto px-4">
-          <h2 className="text-4xl font-serif text-center mb-8 text-amber-800">
-            MOST LOVED
-          </h2>
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-            {productList && productList.length > 0
-              ? productList.map((productItem) => (
-                  <ShoppingProductTile
-                    handleGetProductDetails={handleGetProductDetails}
-                    product={productItem}
-                    handleAddtoCart={handleAddtoCart}
-                  />
-                ))
-              : null}
-          </div>
-        </div>
-      </section>
+            <section className="py-12 relative">
+  <div className="container mx-auto px-4">
+    <h2 className="text-4xl font-serif text-center mb-8 text-amber-800">
+      MOST LOVED
+    </h2>
+    <Swiper
+      spaceBetween={10}
+      slidesPerView={1}
+      breakpoints={{
+        640: { slidesPerView: 1 },  // 1 item visible on small screens
+        768: { slidesPerView: 2 },  // 2 items on tablets
+        1024: { slidesPerView: 3 }, // 3 items on medium screens
+        1280: { slidesPerView: 4 }, // 4 items on larger screens
+      }}
+      navigation={{
+        nextEl: '.swiper-button-next-custom',
+        prevEl: '.swiper-button-prev-custom',
+      }}
+      modules={[Navigation]}
+    >
+      {productList && productList.length > 0 ? (
+        productList.map((productItem, index) => (
+          <SwiperSlide key={index}>
+            <ShoppingProductTile
+              handleGetProductDetails={handleGetProductDetails}
+              product={productItem}
+              handleAddtoCart={handleAddtoCart}
+            />
+          </SwiperSlide>
+        ))
+      ) : null}
+    </Swiper>
+
+    {/* Custom Navigation Buttons */}
+    <div className="swiper-button-prev-custom absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-amber-100 text-amber-600 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-lg shadow-md cursor-pointer hover:bg-amber-200">
+      ❮
+    </div>
+    <div className="swiper-button-next-custom absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-amber-100 text-amber-600 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-lg shadow-md cursor-pointer hover:bg-amber-200">
+      ❯
+    </div>
+  </div>
+</section>
       <ProductDetailsDialog
         open={openDetailsDialog}
         setOpen={setOpenDetailsDialog}

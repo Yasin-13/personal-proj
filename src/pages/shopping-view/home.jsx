@@ -4,6 +4,7 @@ import  ReviewCarousel  from "@/pages/addonshome/ReviewCarousel";
 import  Features  from "@/pages/addonshome/Features";
 import  FeaturesComponent  from "@/pages/addonshome/FeaturesComponent";
 import  KurtaPromo  from "@/pages/addonshome/KurtaPromo";
+import  Footer  from "@/pages/addonshome/Footer";
 
 
 
@@ -105,6 +106,7 @@ function ShoppingHome() {
   }, [dispatch]);
 
   return (
+  <>
     <div className="flex flex-col min-h-screen">
       <div className="relative mb-5 w-full h-[600px] overflow-hidden">
         {featureImageList && featureImageList.length > 0
@@ -152,6 +154,7 @@ function ShoppingHome() {
             <KurtaPromo/>
             <ReviewCarousel/>
             <FeaturesComponent/>
+           
 
     
 
@@ -180,7 +183,12 @@ function ShoppingHome() {
         setOpen={setOpenDetailsDialog}
         productDetails={productDetails}
       />
-    </div>
+   
+     </div>
+      
+      <Footer className="min-w-screen" />
+  
+  </>
   );
 }
 

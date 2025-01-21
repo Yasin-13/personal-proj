@@ -1,5 +1,5 @@
 import {LogOut, Menu, ShoppingCart, UserCog } from "lucide-react";
-import NRlogo1 from  '@/assets/NRLOGO1.jpg'
+import NRlogo1 from  '@/assets/NRLOGO1.jpg';
 import {
   Link,
   useLocation,

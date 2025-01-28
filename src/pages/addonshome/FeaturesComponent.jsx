@@ -79,7 +79,7 @@ const FeaturesComponent = () => {
   ];
 
   return (
-    <div className="bg-amber-800 mt-5 text-amber-200 py-12">
+    <div className="bg-amber-800 mt-5 mb-5 text-amber-200 py-12">
       <div className="max-w-7xl mx-auto px-6">
         <h2 className="text-3xl md:text-4xl font-serif text-center mb-8">
           Our Features

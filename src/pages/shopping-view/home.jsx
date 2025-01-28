@@ -156,8 +156,8 @@ function ShoppingHome() {
             <SimpleSlider/>
             <Features/>
             <KurtaPromo/>
-            <ReviewCarousel/>
-            <FeaturesComponent/>
+            
+            
            
 
     
@@ -213,7 +213,10 @@ function ShoppingHome() {
       />
    
      </div>
-      
+
+     
+     <ReviewCarousel/>
+     <FeaturesComponent/>
       <Footer className="min-w-screen" />
   
   </>

@@ -1,27 +1,41 @@
 import { Facebook, Instagram } from "lucide-react";
-import NRlogo from "@/assets/goldlogoNR.jpg";
-
+import React from "react";
+import { Link } from "react-router-dom";
 
 export default function Footer() {
   return (
     <footer className="w-full">
+      {/* Include custom font using @import */}
+      <style>
+        {`
+          @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
+        `}
+      </style>
+
       <div className="bg-amber-900 text-amber-100 py-5">
         <div className="container mx-auto px-4">
           {/* Top Middle Text */}
           <div className="text-center mb-5">
             <p className="text-white text-sm md:text-base">
-            ।। जय गुरुजी सदा सहाय ।।
+              ।। जय गुरुजी सदा सहाय ।।
             </p>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
             {/* Logo and Quote Section */}
             <div className="col-span-1 lg:col-span-6 space-y-4">
-              <img
-                src={NRlogo}
-                alt="Nitin Readymade"
-                className="w-48 h-auto"
-              />
+              {/* NR Text Only */}
+              <div className="flex items-center space-x-3">
+
+                {/* Brand Name Text */}
+                <div className="flex flex-col items-start">
+                  <h1 className="text-6xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-700 leading-none pb-2">
+                    <span className="font-wedding text-7xl">Nitin</span>
+                    <span className="text-4xl"> Readymade</span>
+                  </h1>
+                </div>
+              </div>
+
               <p className="text-amber-200 mt-4 text-sm md:text-base">
                 "Elevate your style with our premium collection of men's kurtas. Where tradition meets contemporary elegance."
               </p>
@@ -78,52 +92,53 @@ export default function Footer() {
               </h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-sm hover:text-amber-300 transition-colors">
+                  <Link to="/shop/home" className="text-sm hover:text-amber-300 transition-colors">
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-sm hover:text-amber-300 transition-colors">
+                  <Link to="/about-us" className="text-sm hover:text-amber-300 transition-colors">
                     About Us
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-sm hover:text-amber-300 transition-colors">
+                  <Link to="/products" className="text-sm hover:text-amber-300 transition-colors">
                     Products
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-sm hover:text-amber-300 transition-colors">
+                  <Link to="/contact" className="text-sm hover:text-amber-300 transition-colors">
                     Contact
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>
 
+            {/* Information Columns */}
             <div className="col-span-1 lg:col-span-3 space-y-4">
               <h3 className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-700 font-semibold">
                 Information
               </h3>
               <ul className="space-y-2">
                 <li>
-                  <a href="#" className="text-sm hover:text-amber-300 transition-colors">
+                  <Link to="/shipping-policy" className="text-sm hover:text-amber-300 transition-colors">
                     Shipping Policy
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-sm hover:text-amber-300 transition-colors">
+                  <Link to="/return-policy" className="text-sm hover:text-amber-300 transition-colors">
                     Return Policy
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-sm hover:text-amber-300 transition-colors">
+                  <Link to="/terms-of-service" className="text-sm hover:text-amber-300 transition-colors">
                     Terms of Service
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="#" className="text-sm hover:text-amber-300 transition-colors">
+                  <Link to="/privacy-policy" className="text-sm hover:text-amber-300 transition-colors">
                     Privacy Policy
-                  </a>
+                  </Link>
                 </li>
               </ul>
             </div>

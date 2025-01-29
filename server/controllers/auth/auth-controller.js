@@ -7,12 +7,22 @@ const registerUser = async (req, res) => {
   const { userName, email, password } = req.body;
 
   try {
-    const checkUser = await User.findOne({ email });
-    if (checkUser)
+    const checkEmail = await User.findOne({ email });
+    if (checkEmail) {
       return res.json({
         success: false,
-        message: "User Already exists with the same email! Please try again",
+        message: "User already exists with the same email! Please try again",
       });
+    }
+
+    // Check if the userName already exists
+    const checkUserName = await User.findOne({ userName });
+    if (checkUserName) {
+      return res.json({
+        success: false,
+        message: "UserName is already taken! Please choose a different one",
+      });
+    }
 
     const hashPassword = await bcrypt.hash(password, 12);
     const newUser = new User({

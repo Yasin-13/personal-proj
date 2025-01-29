@@ -149,7 +149,8 @@ function HeaderRightContent() {
 
 function ShoppingHeader() {
   return (
-    <header className="sticky top-0 z-40 w-full bg-gradient-to-b from-amber-200 via-amber-100 to-yellow-200">
+    <header className="fixed top-0 left-0 w-full z-50 bg-gradient-to-b from-amber-200 via-amber-100 to-yellow-200 shadow-md">
+
       {/* Marquee Section */}
       <div className="w-full bg-amber-900 text-white text-sm py-2 overflow-hidden">
         <div className="marquee-content flex animate-marquee">

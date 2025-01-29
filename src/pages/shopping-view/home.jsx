@@ -4,7 +4,6 @@ import  ReviewCarousel  from "@/pages/addonshome/ReviewCarousel";
 import  Features  from "@/pages/addonshome/Features";
 import  FeaturesComponent  from "@/pages/addonshome/FeaturesComponent";
 import  KurtaPromo  from "@/pages/addonshome/KurtaPromo";
-import  Footer  from "@/pages/addonshome/Footer";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -217,7 +216,6 @@ function ShoppingHome() {
      
      <ReviewCarousel/>
      <FeaturesComponent/>
-      <Footer className="min-w-screen" />
   
   </>
   );

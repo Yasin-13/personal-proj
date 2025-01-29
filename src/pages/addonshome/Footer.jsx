@@ -107,9 +107,12 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/contact" className="text-sm hover:text-amber-300 transition-colors">
+                  <a  href="mailto:nitinreadymade@gmail.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sm hover:text-amber-300 transition-colors">
                     Contact
-                  </Link>
+                  </a>
                 </li>
               </ul>
             </div>

@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 export default function Footer() {
   return (
     <footer className="w-full">
-      {/* Include custom font using @import */}
       <style>
         {`
           @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@500&display=swap');
@@ -21,26 +20,22 @@ export default function Footer() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8">
-            {/* Logo and Quote Section */}
-            <div className="col-span-1 lg:col-span-6 space-y-4">
-              {/* NR Text Only */}
-              <div className="flex items-center space-x-3">
+          {/* Main Layout with 4 Columns */}
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+            {/* 1st Column - Nitin Readymade and Contact */}
+            <div className="space-y-4 md:col-span-1">
+  <div className="flex items-center space-x-4"> {/* Added space-x-4 for spacing */}
+    {/* Brand Name Text */}
+    <h1 className="text-6xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-700 leading-none pb-2">
+      <span className="font-wedding text-7xl inline-block">Nitin</span>
+      <span className="text-4xl inline-block  ml-1.5">Readymade</span>
+    </h1>
+  </div>
 
-                {/* Brand Name Text */}
-                <div className="flex flex-col items-start">
-                  <h1 className="text-6xl font-semibold text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-700 leading-none pb-2">
-                    <span className="font-wedding text-7xl">Nitin</span>
-                    <span className="text-4xl"> Readymade</span>
-                  </h1>
-                </div>
-              </div>
-
-              <p className="text-amber-200 mt-4 text-sm md:text-base">
-                "Elevate your style with our premium collection of men's kurtas. Where tradition meets contemporary elegance."
+              <p className="text-amber-200 text-xs md:text-sm">
+                "Elevate your style with our premium collection of men's kurtas."
               </p>
 
-              {/* Contact Section */}
               <div className="mt-6 space-y-2">
                 <h3 className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-700 font-semibold mb-2">
                   Contact Us
@@ -85,8 +80,31 @@ export default function Footer() {
               </div>
             </div>
 
-            {/* Quick Links Columns */}
-            <div className="col-span-1 lg:col-span-3 space-y-4">
+            {/* 2nd Column - Map (Adjusted to the right) */}
+            <div className="md:col-span-1 md:ml-10">
+              <h3 className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-700 font-semibold">
+                Address
+              </h3>
+              <p className="text-sm text-amber-200">
+              Shop No. 13, Om Datta Co, Khambdev Nagar, Dharavi, Mumbai - 400017 Opposite Hsg. Society
+              </p>
+
+              <div className="h-48 mt-4">
+          <iframe
+       title="Nitin Readymade Location"
+       src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3763.6890470592685!2d72.8564775!3d19.0465233!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3be7c8d0e7910f59%3A0x4be7aa2f1c69f36a!2sKhamdev%20Nagar%20Rd%2C%20Dharavi%2C%20Mumbai%2C%20Maharashtra%20400017!5e0!3m2!1sen!2sin!4v1675259810537!5m2!1sen!2sin"
+        width="100%"
+        height="100%"
+         style={{ border: 0 }}
+         allowFullScreen=""
+          loading="lazy"
+           />
+         </div>
+
+            </div>
+
+            {/* 3rd Column - Quick Links (Adjusted to the right) */}
+            <div className="md:col-span-1 md:ml-20">
               <h3 className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-700 font-semibold">
                 Quick Links
               </h3>
@@ -107,18 +125,15 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <a  href="mailto:nitinreadymade@gmail.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="text-sm hover:text-amber-300 transition-colors">
+                  <a href="mailto:nitinreadymade@gmail.com" className="text-sm hover:text-amber-300 transition-colors">
                     Contact
                   </a>
                 </li>
               </ul>
             </div>
 
-            {/* Information Columns */}
-            <div className="col-span-1 lg:col-span-3 space-y-4">
+            {/* 4th Column - Information Links (Adjusted to the right) */}
+            <div className="md:col-span-1 md:ml-20">
               <h3 className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-300 via-yellow-500 to-yellow-700 font-semibold">
                 Information
               </h3>

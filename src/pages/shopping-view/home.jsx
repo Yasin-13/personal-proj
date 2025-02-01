@@ -7,11 +7,9 @@ import  KurtaPromo  from "@/pages/addonshome/KurtaPromo";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
+import { Link } from "react-router-dom";
 import { Navigation } from 'swiper/modules';
 
-
-
-  
 
 // import bannerOne from "../../assets/banner-1.webp";
 // import bannerTwo from "../../assets/banner-2.webp";
@@ -38,10 +36,13 @@ import { getFeatureImages } from "@/store/common-slice";
 
 
 function ShoppingHome() {
-  const [currentSlide, setCurrentSlide] = useState(0);
+  const[currentSlide, setCurrentSlide] = useState(0);
   const { productList, productDetails } = useSelector(
     (state) => state.shopProducts
+
   );
+
+
   const { featureImageList } = useSelector((state) => state.commonFeature);
 
   const [openDetailsDialog, setOpenDetailsDialog] = useState(false);
@@ -108,48 +109,96 @@ function ShoppingHome() {
     dispatch(getFeatureImages());
   }, [dispatch]);
 
+
+  const bannerTexts = [
+    "Timeless Elegance, Only at Nitin Readymade",
+    "Discover Style, Embrace Comfort",
+    "Luxury Kurtas & Sherwanis Await You",
+    "Crafted for the Modern Man's Wardrobe",
+    "Elegance in Every Stitch, Luxury in Every Design",
+    "Explore the Finest Collection of Men's Kurtas",
+    "Unmatched Comfort Meets Superior Style",
+    "Where Tradition Meets Contemporary Fashion",
+    "Your Destination for Premium Kurtas & Sherwanis",
+    "Experience the Art of Tailoring at Its Best",
+    "Step into Tradition with a Touch of Modernity",
+    "Premium Fabric, Flawless Fit, Timeless Style",
+    "Classic Styles for the Modern Gentleman",
+    "Unveil Your Style with Our Exclusive Kurtas",
+    "Celebrate Every Occasion with the Perfect Kurta",
+    "Discover the Essence of Indian Craftsmanship",
+    "Sophisticated Kurtas, Made for You",
+    "From Traditional to Trendy, We've Got It All",
+    "Wear Your Culture with Pride & Style",
+    "Perfectly Tailored, Exceptionally Crafted",
+    "Elevate Your Style with Our Designer Kurtas",
+    "Where Fashion Meets Function in Every Stitch",
+    "Step Out in Style with Our Signature Kurtas",
+    "Luxury That Speaks of Tradition & Elegance",
+    "Modern Kurtas with a Traditional Twist",
+    "Be the Best-Dressed Man at Any Celebration",
+  ];
+  
+
   return (
   <>
     <div className="flex flex-col min-h-screen">
-      <div className="relative mb-5 w-full h-[600px] overflow-hidden">
-        {featureImageList && featureImageList.length > 0
-          ? featureImageList.map((slide, index) => (
-              <img
-                src={slide?.image}
-                key={index}
-                className={`${
-                  index === currentSlide ? "opacity-100" : "opacity-0"
-                } absolute top-0 left-0 w-full h-full object-cover transition-opacity duration-1000`}
-              />
-            ))
-          : null}
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() =>
-            setCurrentSlide(
-              (prevSlide) =>
-                (prevSlide - 1 + featureImageList.length) %
-                featureImageList.length
-            )
-          }
-          className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/80 hover:bg-amber-100 focus:ring-amber-500 focus:outline-none"
+    <div className="relative mb-5 w-full h-[600px] overflow-hidden">
+  {featureImageList && featureImageList.length > 0
+    ? featureImageList.map((slide, index) => (
+        <div
+          key={index}
+          className={`absolute top-0 left-0 w-full h-full transition-opacity duration-1000 ${
+            index === currentSlide ? "opacity-100" : "opacity-0"
+          }`}
         >
-          <ChevronLeftIcon className="w-4 h-4 text-amber-500" />
-        </Button>
-        <Button
-          variant="outline"
-          size="icon"
-          onClick={() =>
-            setCurrentSlide(
-              (prevSlide) => (prevSlide + 1) % featureImageList.length
-            )
-          }
-          className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/80 hover:bg-amber-100 focus:ring-amber-500 focus:outline-none"
-        >
-          <ChevronRightIcon className="w-4 h-4 text-amber-500" />
-        </Button>
-      </div>
+          <img src={slide?.image} className="w-full h-full object-cover" alt="Banner" />
+          <div className="absolute bottom-12 left-1/2 transform -translate-x-1/2 text-center text-white px-6 font-serif drop-shadow-lg">
+            <h1 className="font-playfair display font-bold tracking-wide drop-shadow-2xl text-3xl sm:text-4xl md:text-5xl lg:text-4xl">
+              {bannerTexts[index % bannerTexts.length]}
+            </h1>
+
+            <p className="mt-1 text-white/80 font-cinzel italic tracking-wider drop-shadow-lg text-lg sm:text-xl md:text-2xl">
+              Explore our latest collection and find your perfect fit.
+            </p>
+
+                    <Link to="/shop/listing">
+                      <button
+                        className="mt-6 px-6 py-3 bg-gradient-to-r from-amber-500 to-yellow-500 text-white rounded-lg shadow-lg hover:from-amber-600 hover:to-yellow-600 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200"
+                      >
+                      Shop Now
+                      </button>
+                    </Link>
+                    
+          </div>
+        </div>
+      ))
+    : null}
+
+  <Button
+    variant="outline"
+    size="icon"
+    onClick={() =>
+      setCurrentSlide(
+        (prevSlide) => (prevSlide - 1 + featureImageList.length) % featureImageList.length
+      )
+    }
+    className="absolute top-1/2 left-4 transform -translate-y-1/2 bg-white/80 hover:bg-amber-100 focus:ring-amber-500 focus:outline-none"
+  >
+    <ChevronLeftIcon className="w-4 h-4 text-amber-500" />
+  </Button>
+  <Button
+    variant="outline"
+    size="icon"
+    onClick={() =>
+      setCurrentSlide((prevSlide) => (prevSlide + 1) % featureImageList.length)
+    }
+    className="absolute top-1/2 right-4 transform -translate-y-1/2 bg-white/80 hover:bg-amber-100 focus:ring-amber-500 focus:outline-none"
+  >
+    <ChevronRightIcon className="w-4 h-4 text-amber-500" />
+  </Button>
+</div>
+
 
      
             <SimpleSlider/>

@@ -5,66 +5,66 @@ import { Star } from 'lucide-react'
 
 function ReviewCarousel() {
   const scrollRef = useRef(null)
-  
+
   const reviews = [
     {
-      name: "Rajesh Kumar",
-      title: "Regal Comfort",
-      text: "The kurta exudes elegance. Perfect for formal occasions!",
+      name: "Ravi Sharma",
+      title: "Great Comfort",
+      text: "The kurta feels really comfortable and looks elegant!",
       stars: 5,
     },
     {
-      name: "Amit Patel",
-      title: "Impeccable Craftsmanship",
-      text: "The attention to detail in stitching is remarkable.",
+      name: "Manish Patel",
+      title: "Good Stitching",
+      text: "Neat stitching and premium quality fabric. Loved it!",
       stars: 5,
     },
     {
-      name: "Vikram Singh",
-      title: "Modern Meets Traditional",
-      text: "Love how it blends contemporary style with classic design.",
+      name: "Deepak Mehta",
+      title: "Perfect for Festivals",
+      text: "Looks stylish yet traditional. Wore it for Diwali!",
       stars: 5,
     },
     {
-      name: "Sanjay Gupta",
-      title: "Perfect Fit",
-      text: "The sizing guide was spot on. Fits like a dream!",
+      name: "Suresh Yadav",
+      title: "Right Fit",
+      text: "The fit is exactly as described. No complaints!",
       stars: 5,
     },
     {
-      name: "Arjun Reddy",
-      title: "Versatile Elegance",
-      text: "From festivals to casual outings, this kurta is my go-to choice.",
+      name: "Arun Joshi",
+      title: "Worth the Price",
+      text: "Totally satisfied with the price and quality.",
       stars: 5,
     },
     {
-      name: "Karan Malhotra",
-      title: "Premium Quality",
-      text: "The fabric quality is exceptional. Worth every penny!",
+      name: "Vinod Gupta",
+      title: "Good Fabric Quality",
+      text: "Soft fabric and good design. Happy with my purchase!",
       stars: 5,
     },
     {
-      name: "Rahul Sharma",
-      title: "Comfortable All Day",
-      text: "Wore it for a wedding. Comfortable even after hours of festivities.",
+      name: "Rakesh Kumar",
+      title: "Looks Premium",
+      text: "Got many compliments when I wore it. Feels premium!",
       stars: 5,
     },
     {
-      name: "Nikhil Verma",
-      title: "Stylish and Sophisticated",
-      text: "Received numerous compliments. A true head-turner!",
+      name: "Pankaj Verma",
+      title: "Stylish Yet Simple",
+      text: "Nice combination of simple yet stylish. Will buy again.",
       stars: 5,
     },
     {
-      name: "Aditya Chopra",
-      title: "Excellent Color Options",
-      text: "The range of colors is impressive. Bought three different shades!",
+      name: "Amit Bansal",
+      title: "Best for Weddings",
+      text: "Wore it at a wedding, and it was super comfortable!",
       stars: 5,
     },
     {
-      name: "Prateek Joshi",
-      title: "Timeless Appeal",
-      text: "A kurta that never goes out of style. Highly recommended!",
+      name: "Rahul Sen",
+      title: "Classy and Traditional",
+      text: "A kurta that blends tradition with modern style!",
       stars: 5,
     }
   ]
@@ -73,31 +73,40 @@ function ReviewCarousel() {
     const container = scrollRef.current
     if (!container) return
 
-    const scroll = () => {
+    let scrollAmount = 0
+
+    const smoothScroll = () => {
       if (container.scrollLeft >= container.scrollWidth - container.clientWidth) {
         container.scrollLeft = 0
       } else {
-        container.scrollLeft += 1
+        container.scrollLeft += 2  // Increased speed slightly for smoothness
       }
+      scrollAmount = requestAnimationFrame(smoothScroll)
     }
 
-    const timer = setInterval(scroll, 50)
-    return () => clearInterval(timer)
+    const timer = setTimeout(() => {
+      scrollAmount = requestAnimationFrame(smoothScroll)
+    }, 1000)
+
+    return () => {
+      cancelAnimationFrame(scrollAmount)
+      clearTimeout(timer)
+    }
   }, [])
 
   return (
-    <div className="bg-gradient-to-r mt-5 mb-5 from-amber-200 mt-5 via-amber-100 to-yellow-200 py-16 border-t-4 border-b-4 border-amber-300">
+    <div className="bg-gradient-to-r mt-5 mb-5 from-amber-200 via-amber-100 to-yellow-200 py-16 border-t-4 border-b-4 border-amber-300">
       <div className="container mx-auto px-4">
         <div className="text-center mb-12">
-        <h2 className="text-4xl  text-amber-800 mb-4 font-serif">
-            Royal Impressions from Our Esteemed Patrons
+          <h2 className="text-4xl text-amber-800 mb-4 font-serif">
+            Hear from Our Happy Customers
           </h2>
           <div className="flex justify-center gap-1 mb-4">
             {[...Array(5)].map((_, i) => (
               <Star key={i} className="w-6 h-6 fill-amber-400 text-amber-400" />
             ))}
           </div>
-          <p className="text-xl text-amber-700 font-light">Verified Customers</p>
+          <p className="text-xl text-amber-700 font-light">Real Reviews, Verified Customers</p>
         </div>
 
         <div 
@@ -150,4 +159,3 @@ function ReviewCarousel() {
 }
 
 export default ReviewCarousel
-

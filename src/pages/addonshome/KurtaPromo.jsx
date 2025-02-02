@@ -2,8 +2,8 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-import DesignerKurta1 from "./sliderimages/maroon2.jpg"; // Replace with actual path
-import DesignerKurta2 from "./sliderimages/maroon3.jpg"; // Replace with actual path
+import DesignerKurta1 from "./sliderimages/m2.jpeg"; 
+import DesignerKurta2 from "./sliderimages/m3.jpeg"; 
 
 const KurtaPromo = () => {
   return (

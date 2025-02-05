@@ -115,12 +115,12 @@ export default function Footer() {
                   </Link>
                 </li>
                 <li>
-                  <Link to="/about-us" className="text-sm hover:text-amber-300 transition-colors">
+                  <Link to="/shop/aboutus" className="text-sm hover:text-amber-300 transition-colors">
                     About Us
                   </Link>
                 </li>
                 <li>
-                  <Link to="/products" className="text-sm hover:text-amber-300 transition-colors">
+                  <Link to="/shop/listing" className="text-sm hover:text-amber-300 transition-colors">
                     Products
                   </Link>
                 </li>
@@ -139,22 +139,22 @@ export default function Footer() {
               </h3>
               <ul className="space-y-2">
                 <li>
-                  <Link to="/shipping-policy" className="text-sm hover:text-amber-300 transition-colors">
+                  <Link to="/shop/shippingpolicy" className="text-sm hover:text-amber-300 transition-colors">
                     Shipping Policy
                   </Link>
                 </li>
                 <li>
-                  <Link to="/return-policy" className="text-sm hover:text-amber-300 transition-colors">
+                  <Link to="/shop/returnpolicy" className="text-sm hover:text-amber-300 transition-colors">
                     Return Policy
                   </Link>
                 </li>
                 <li>
-                  <Link to="/terms-of-service" className="text-sm hover:text-amber-300 transition-colors">
+                  <Link to="/shop/termsofservice" className="text-sm hover:text-amber-300 transition-colors">
                     Terms of Service
                   </Link>
                 </li>
                 <li>
-                  <Link to="/privacy-policy" className="text-sm hover:text-amber-300 transition-colors">
+                  <Link to="/shop/privacypolicy" className="text-sm hover:text-amber-300 transition-colors">
                     Privacy Policy
                   </Link>
                 </li>

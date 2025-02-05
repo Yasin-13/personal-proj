@@ -25,6 +25,11 @@ import SearchProducts from "./pages/shopping-view/search";
 
 // Import your ScrollToTop component
 import ScrollToTop from '@/components/ui/ScrollToTop';
+import AboutUs from "./pages/addonshome/addonfooter/AboutUs";
+import ShippingPolicy from "./pages/addonshome/addonfooter/ShippingPolicy";
+import ReturnPolicy from "./pages/addonshome/addonfooter/ReturnPolicy";
+import TermsOfService from "./pages/addonshome/addonfooter/TermsOfService";
+import PrivacyPolicy from "./pages/addonshome/addonfooter/PrivacyPolicy";
 
 function App() {
   const { user, isAuthenticated, isLoading } = useSelector(
@@ -86,6 +91,14 @@ function App() {
           }
         >
           <Route path="home" element={<ShoppingHome />} />
+          <Route path="aboutus" element={<AboutUs />} />
+          <Route path="shippingpolicy" element={<ShippingPolicy />} />
+          <Route path="returnpolicy" element={<ReturnPolicy />} />
+          <Route path="termsofservice" element={<TermsOfService />} />
+          <Route path="privacypolicy" element={<PrivacyPolicy />} />
+
+
+
           <Route path="listing" element={<ShoppingListing />} />
           <Route path="checkout" element={<ShoppingCheckout />} />
           <Route path="account" element={<ShoppingAccount />} />

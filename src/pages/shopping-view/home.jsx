@@ -3,6 +3,8 @@ import  SimpleSlider  from "@/pages/addonshome/SimpleSlider";
 import  ReviewCarousel  from "@/pages/addonshome/ReviewCarousel";
 import  Features  from "@/pages/addonshome/Features";
 import  FeaturesComponent  from "@/pages/addonshome/FeaturesComponent";
+import  KurtaCollection  from "@/pages/addonshome/KurtaCollection";
+
 import  KurtaPromo  from "@/pages/addonshome/KurtaPromo";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
@@ -264,6 +266,7 @@ function ShoppingHome() {
 
      
      <ReviewCarousel/>
+     <KurtaCollection/>
      <FeaturesComponent/>
   
   </>

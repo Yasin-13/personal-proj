@@ -33,7 +33,13 @@ const addProduct = async (req, res) => {
       salePrice,
       totalStock,
       averageReview,
-      sizes, // Added sizes
+      sizes,
+      material,
+    sleeveLength,
+    neck,
+    length,
+    occasion,
+    technique,
     } = req.body;
 
     // Validate sizes
@@ -54,7 +60,13 @@ const addProduct = async (req, res) => {
       salePrice,
       totalStock,
       averageReview,
-      sizes, // Include sizes in the new product
+      sizes, 
+      material,
+    sleeveLength,
+    neck,
+    length,
+    occasion,
+    technique,
     });
 
     await newlyCreatedProduct.save();
@@ -102,7 +114,13 @@ const editProduct = async (req, res) => {
       salePrice,
       totalStock,
       averageReview,
-      sizes, // Added sizes
+      sizes, 
+      material,
+      sleeveLength,
+      neck,
+      length,
+      occasion, 
+      technique
     } = req.body;
 
     let findProduct = await Product.findById(id);
@@ -133,6 +151,13 @@ const editProduct = async (req, res) => {
       }
       findProduct.sizes = sizes;
     }
+
+    findProduct.material = material || findProduct.material;
+    findProduct.sleeveLength = sleeveLength || findProduct.sleeveLength;
+    findProduct.neck = neck  || findProduct.neck;
+    findProduct.length = length || findProduct.length;
+    findProduct.occasion = occasion || findProduct.occasion;
+    findProduct.technique = technique || findProduct.technique;
 
     await findProduct.save();
     res.status(200).json({

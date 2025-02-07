@@ -58,11 +58,20 @@ export const addProductFormElements = [
     name: "category",
     componentType: "select",
     options: [
-      { id: "men", label: "Men" },
-      { id: "women", label: "Women" },
-      { id: "kids", label: "Kids" },
-      { id: "accessories", label: "Accessories" },
-      { id: "footwear", label: "Footwear" },
+      { id: "kurta", label: "Kurta" },
+      { id: "payjama", label: "Payjama" },
+      { id: "sherwani", label: "Sherwani" },
+      { id: "pagdi", label: "Pagdi" },
+      { id: "topi", label: "Topi" },
+      { id: "dhoti", label: "Dhoti" },
+      { id: "bandhgala", label: "Bandhgala" },
+      { id: "achkan", label: "Achkan" },
+      { id: "pathani", label: "Pathani" },
+      { id: "jodhpuri", label: "Jodhpuri" },
+      { id: "nehrutop", label: "Nehru Top" },
+      { id: "kurtaSet", label: "Kurta Set" },
+      { id: "indowestern", label: "Indo-Western" },
+      { id: "tunic", label: "Tunic" },
     ],
   },
   {
@@ -70,12 +79,73 @@ export const addProductFormElements = [
     name: "brand",
     componentType: "select",
     options: [
-      { id: "nike", label: "Nike" },
-      { id: "adidas", label: "Adidas" },
-      { id: "puma", label: "Puma" },
-      { id: "levi", label: "Levi's" },
-      { id: "zara", label: "Zara" },
-      { id: "h&m", label: "H&M" },
+      { id: "nitinReadymade", label: "Nitin Readymade" },
+    ],
+    required: true,
+  },
+  {
+    label: "Material",
+    name: "material",
+    componentType: "select",
+    options: [
+      { id: "premiumCotton", label: "Premium Quality Cotton" },
+      { id: "silk", label: "Silk" },
+      { id: "linen", label: "Linen" },
+      { id: "rayon", label: "Rayon" },
+      { id: "polyester", label: "Polyester" },
+    ],
+  },
+  {
+    label: "Sleeve Length",
+    name: "sleeveLength",
+    componentType: "select",
+    options: [
+      { id: "long", label: "Long" },
+      { id: "short", label: "Short" },
+      { id: "threeQuarter", label: "Three Quarter" },
+    ],
+  },
+  {
+    label: "Neck",
+    name: "neck",
+    componentType: "select",
+    options: [
+      { id: "mandarin", label: "Mandarin" },
+      { id: "round", label: "Round" },
+      { id: "collared", label: "Collared" },
+      { id: "vNeck", label: "V-Neck" },
+    ],
+  },
+  {
+    label: "Length",
+    name: "length",
+    componentType: "select",
+    options: [
+      { id: "kneeLength", label: "Knee Length" },
+      { id: "midThigh", label: "Mid Thigh" },
+      { id: "ankleLength", label: "Ankle Length" },
+    ],
+  },
+  {
+    label: "Occasion",
+    name: "occasion",
+    componentType: "select",
+    options: [
+      { id: "traditional", label: "Traditional and Festive Events" },
+      { id: "casual", label: "Casual" },
+      { id: "formal", label: "Formal" },
+      { id: "party", label: "Party Wear" },
+    ],
+  },
+  {
+    label: "Technique",
+    name: "technique",
+    componentType: "select",
+    options: [
+      { id: "screenPrinting", label: "Screen Printing" },
+      { id: "embroidery", label: "Embroidery" },
+      { id: "blockPrinting", label: "Block Printing" },
+      { id: "handPainted", label: "Hand Painted" },
     ],
   },
   {
@@ -122,6 +192,9 @@ export const addProductFormElements = [
   },
 ];
 
+
+
+
 export const shoppingViewHeaderMenuItems = [
   {
     id: "home",
@@ -166,39 +239,49 @@ export const shoppingViewHeaderMenuItems = [
 ];
 
 export const categoryOptionsMap = {
-  men: "Men",
-  women: "Women",
-  kids: "Kids",
-  accessories: "Accessories",
-  footwear: "Footwear",
+  kurta: "Kurta",
+  payjama: "Payjama",
+  sherwani: "Sherwani",
+  pagdi: "Pagdi",
+  topi: "Topi",
+  dhoti: "Dhoti",
+  bandhgala: "Bandhgala",
+  achkan: "Achkan",
+  pathani: "Pathani",
+  jodhpuri: "Jodhpuri",
+  nehrutop: "Nehru Top",
+  kurtaSet: "Kurta Set",
+  indowestern: "Indo-Western",
+  tunic: "Tunic",
 };
 
+
 export const brandOptionsMap = {
-  nike: "Nike",
-  adidas: "Adidas",
-  puma: "Puma",
-  levi: "Levi",
-  zara: "Zara",
-  "h&m": "H&M",
+  nitinReadymade: "Nitin Readymade",
 };
 
 export const filterOptions = {
   category: [
-    { id: "men", label: "Men" },
-    { id: "women", label: "Women" },
-    { id: "kids", label: "Kids" },
-    { id: "accessories", label: "Accessories" },
-    { id: "footwear", label: "Footwear" },
+    { id: "kurta", label: "Kurta" },
+    { id: "payjama", label: "Payjama" },
+    { id: "sherwani", label: "Sherwani" },
+    { id: "pagdi", label: "Pagdi" },
+    { id: "topi", label: "Topi" },
+    { id: "dhoti", label: "Dhoti" },
+    { id: "bandhgala", label: "Bandhgala" },
+    { id: "achkan", label: "Achkan" },
+    { id: "pathani", label: "Pathani" },
+    { id: "jodhpuri", label: "Jodhpuri" },
+    { id: "nehrutop", label: "Nehru Top" },
+    { id: "kurtaSet", label: "Kurta Set" },
+    { id: "indowestern", label: "Indo-Western" },
+    { id: "tunic", label: "Tunic" },
   ],
   brand: [
-    { id: "nike", label: "Nike" },
-    { id: "adidas", label: "Adidas" },
-    { id: "puma", label: "Puma" },
-    { id: "levi", label: "Levi's" },
-    { id: "zara", label: "Zara" },
-    { id: "h&m", label: "H&M" },
+    { id: "nitinReadymade", label: "Nitin Readymade" },
   ],
 };
+
 
 export const sortOptions = [
   { id: "price-lowtohigh", label: "Price: Low to High" },

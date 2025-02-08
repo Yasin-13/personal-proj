@@ -1,4 +1,7 @@
 import ProductImageUpload from "@/components/admin-view/image-upload";
+import ProductImageUpload2 from "@/components/admin-view/image-upload2";
+import ProductImageUpload3 from "@/components/admin-view/image-upload3";
+import ProductImageUpload4 from "@/components/admin-view/image-upload4";
 import AdminProductTile from "@/components/admin-view/product-tile";
 import CommonForm from "@/components/common/form";
 import { Button } from "@/components/ui/button";
@@ -20,24 +23,44 @@ import { Fragment, useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const initialFormData = {
-  image: null,
+  image1: null,
+  image2: null,
+  image3: null,
+  image4: null,
   title: "",
   description: "",
   category: "",
   price: "",
   salePrice: "",
   totalStock: "",
-  sizes: [], // Added for size-based stock
+  sizes: [],
   averageReview: 0,
 };
 
+
 function AdminProducts() {
-  const [openCreateProductsDialog, setOpenCreateProductsDialog] =
-    useState(false);
+  const [openCreateProductsDialog, setOpenCreateProductsDialog] = useState(false);
   const [formData, setFormData] = useState(initialFormData);
+  // Image 1 States
   const [imageFile, setImageFile] = useState(null);
   const [uploadedImageUrl, setUploadedImageUrl] = useState("");
   const [imageLoadingState, setImageLoadingState] = useState(false);
+  
+  // Image 2 States
+  const [imageFile2, setImageFile2] = useState(null);
+  const [uploadedImageUrl2, setUploadedImageUrl2] = useState("");
+  const [imageLoadingState2, setImageLoadingState2] = useState(false);
+  
+  // Image 3 States
+  const [imageFile3, setImageFile3] = useState(null);
+  const [uploadedImageUrl3, setUploadedImageUrl3] = useState("");
+  const [imageLoadingState3, setImageLoadingState3] = useState(false);
+  
+  // Image 4 States
+  const [imageFile4, setImageFile4] = useState(null);
+  const [uploadedImageUrl4, setUploadedImageUrl4] = useState("");
+  const [imageLoadingState4, setImageLoadingState4] = useState(false);
+
   const [currentEditedId, setCurrentEditedId] = useState(null);
 
   const { productList } = useSelector((state) => state.adminProducts);
@@ -49,38 +72,56 @@ function AdminProducts() {
 
     const payload = {
       ...formData,
-      image: uploadedImageUrl,
+      image1: uploadedImageUrl,
+      image2: uploadedImageUrl2,
+      image3: uploadedImageUrl3,
+      image4: uploadedImageUrl4,
     };
 
-    currentEditedId !== null
-      ? dispatch(editProduct({ id: currentEditedId, formData: payload })).then(
-          (data) => {
-            if (data?.payload?.success) {
-              dispatch(fetchAllProducts());
-              resetForm();
-            }
-          }
-        )
-      : dispatch(addNewProduct(payload)).then((data) => {
-          if (data?.payload?.success) {
-            dispatch(fetchAllProducts());
-            resetForm();
-            toast({
-              title: "Product added successfully",
-              description: "Your product has been added to the inventory.",
-            });
-          }
-        });
+    if (currentEditedId !== null) {
+      dispatch(editProduct({ id: currentEditedId, formData: payload })).then((data) => {
+        if (data?.payload?.success) {
+          dispatch(fetchAllProducts());
+          resetForm();
+          toast({
+            title: "Product updated successfully",
+            description: "Your product changes have been saved.",
+          });
+        }
+      });
+    } else {
+      dispatch(addNewProduct(payload)).then((data) => {
+        if (data?.payload?.success) {
+          dispatch(fetchAllProducts());
+          resetForm();
+          toast({
+            title: "Product added successfully",
+            description: "Your product has been added to the inventory.",
+          });
+        }
+      });
+    }
   }
+
 
   function resetForm() {
     setFormData(initialFormData);
+    // Reset all image states
     setImageFile(null);
+    setImageFile2(null);
+    setImageFile3(null);
+    setImageFile4(null);
     setUploadedImageUrl("");
+    setUploadedImageUrl2("");
+    setUploadedImageUrl3("");
+    setUploadedImageUrl4("");
+    setImageLoadingState(false);
+    setImageLoadingState2(false);
+    setImageLoadingState3(false);
+    setImageLoadingState4(false);
     setOpenCreateProductsDialog(false);
     setCurrentEditedId(null);
   }
-
   function handleDelete(getCurrentProductId) {
     dispatch(deleteProduct(getCurrentProductId)).then((data) => {
       if (data?.payload?.success) {
@@ -171,15 +212,50 @@ function AdminProducts() {
               {currentEditedId !== null ? "Edit Product" : "Add New Product"}
             </SheetTitle>
           </SheetHeader>
-          <ProductImageUpload
-            imageFile={imageFile}
-            setImageFile={setImageFile}
-            uploadedImageUrl={uploadedImageUrl}
-            setUploadedImageUrl={setUploadedImageUrl}
-            setImageLoadingState={setImageLoadingState}
-            imageLoadingState={imageLoadingState}
-            isEditMode={currentEditedId !== null}
-          />
+           {/* Image Upload Components */}
+<ProductImageUpload
+  imageFile={imageFile}
+  setImageFile={setImageFile}
+  uploadedImageUrl={uploadedImageUrl}
+  setUploadedImageUrl={setUploadedImageUrl}
+  setImageLoadingState={setImageLoadingState}
+  imageLoadingState={imageLoadingState}
+  isEditMode={currentEditedId !== null}
+  uniqueKey="image1"
+/>
+
+<ProductImageUpload2
+  imageFile2={imageFile2}
+  setImageFile2={setImageFile2}
+  uploadedImageUrl2={uploadedImageUrl2}
+  setUploadedImageUrl2={setUploadedImageUrl2}
+  setImageLoadingState2={setImageLoadingState2}
+  imageLoadingState2={imageLoadingState2}
+  isEditMode={currentEditedId !== null}
+  uniqueKey="image2"
+/>
+
+<ProductImageUpload3
+  imageFile3={imageFile3}
+  setImageFile3={setImageFile3}
+  uploadedImageUrl3={uploadedImageUrl3}
+  setUploadedImageUrl3={setUploadedImageUrl3}
+  setImageLoadingState3={setImageLoadingState3}
+  imageLoadingState3={imageLoadingState3}
+  isEditMode={currentEditedId !== null}
+  uniqueKey="image3"
+/>
+
+<ProductImageUpload4
+  imageFile4={imageFile4}
+  setImageFile4={setImageFile4}
+  uploadedImageUrl4={uploadedImageUrl4}
+  setUploadedImageUrl4={setUploadedImageUrl4}
+  setImageLoadingState4={setImageLoadingState4}
+  imageLoadingState4={imageLoadingState4}
+  isEditMode={currentEditedId !== null}
+  uniqueKey="image4"
+/>
           <div className="py-6">
             <CommonForm
               onSubmit={onSubmit}

@@ -10,7 +10,7 @@ function ShoppingProductTile({ product, handleGetProductDetails, handleAddtoCart
         {/* Image Container with Bottom Shadow Effect */}
         <div className="relative pt-[150%] overflow-hidden">
           <img
-            src={product?.image}
+            src={product?.image1}
             alt={product?.title}
             className="absolute top-0 left-0 w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-300"
           />

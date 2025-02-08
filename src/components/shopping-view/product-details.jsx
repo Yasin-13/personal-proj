@@ -121,7 +121,7 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
         <div className="relative" style={{ paddingTop: '150%' }}>
           <div className="absolute inset-0 flex items-center justify-center bg-muted/20">
             <img
-              src={productDetails?.image}
+              src={productDetails?.image1}
               alt={productDetails?.title}
               className="object-contain w-full h-full p-4"
             />

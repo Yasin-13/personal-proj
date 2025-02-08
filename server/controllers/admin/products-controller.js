@@ -24,7 +24,10 @@ const handleImageUpload = async (req, res) => {
 const addProduct = async (req, res) => {
   try {
     const {
-      image,
+      image1,
+      image2,
+      image3,
+      image4,
       title,
       description,
       category,
@@ -35,11 +38,11 @@ const addProduct = async (req, res) => {
       averageReview,
       sizes,
       material,
-    sleeveLength,
-    neck,
-    length,
-    occasion,
-    technique,
+      sleeveLength,
+      neck,
+      length,
+      occasion,
+      technique,
     } = req.body;
 
     // Validate sizes
@@ -51,7 +54,10 @@ const addProduct = async (req, res) => {
     }
 
     const newlyCreatedProduct = new Product({
-      image,
+      image1,
+      image2,
+      image3,
+      image4,
       title,
       description,
       category,
@@ -60,13 +66,13 @@ const addProduct = async (req, res) => {
       salePrice,
       totalStock,
       averageReview,
-      sizes, 
+      sizes,
       material,
-    sleeveLength,
-    neck,
-    length,
-    occasion,
-    technique,
+      sleeveLength,
+      neck,
+      length,
+      occasion,
+      technique,
     });
 
     await newlyCreatedProduct.save();
@@ -105,7 +111,10 @@ const editProduct = async (req, res) => {
   try {
     const { id } = req.params;
     const {
-      image,
+      image1,
+      image2,
+      image3,
+      image4,
       title,
       description,
       category,
@@ -114,13 +123,13 @@ const editProduct = async (req, res) => {
       salePrice,
       totalStock,
       averageReview,
-      sizes, 
+      sizes,
       material,
       sleeveLength,
       neck,
       length,
-      occasion, 
-      technique
+      occasion,
+      technique,
     } = req.body;
 
     let findProduct = await Product.findById(id);
@@ -130,15 +139,17 @@ const editProduct = async (req, res) => {
         message: "Product not found",
       });
 
+    findProduct.image1 = image1 || findProduct.image1;
+    findProduct.image2 = image2 || findProduct.image2;
+    findProduct.image3 = image3 || findProduct.image3;
+    findProduct.image4 = image4 || findProduct.image4;
     findProduct.title = title || findProduct.title;
     findProduct.description = description || findProduct.description;
     findProduct.category = category || findProduct.category;
     findProduct.brand = brand || findProduct.brand;
     findProduct.price = price === "" ? 0 : price || findProduct.price;
-    findProduct.salePrice =
-      salePrice === "" ? 0 : salePrice || findProduct.salePrice;
+    findProduct.salePrice = salePrice === "" ? 0 : salePrice || findProduct.salePrice;
     findProduct.totalStock = totalStock || findProduct.totalStock;
-    findProduct.image = image || findProduct.image;
     findProduct.averageReview = averageReview || findProduct.averageReview;
 
     // Validate and update sizes
@@ -154,7 +165,7 @@ const editProduct = async (req, res) => {
 
     findProduct.material = material || findProduct.material;
     findProduct.sleeveLength = sleeveLength || findProduct.sleeveLength;
-    findProduct.neck = neck  || findProduct.neck;
+    findProduct.neck = neck || findProduct.neck;
     findProduct.length = length || findProduct.length;
     findProduct.occasion = occasion || findProduct.occasion;
     findProduct.technique = technique || findProduct.technique;

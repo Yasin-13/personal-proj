@@ -6,13 +6,13 @@ import { Button } from "../ui/button";
 import axios from "axios";
 import { Skeleton } from "../ui/skeleton";
 
-function ProductImageUpload({
-  imageFile,
-  setImageFile,
-  imageLoadingState,
-  uploadedImageUrl,
-  setUploadedImageUrl,
-  setImageLoadingState,
+function ProductImageUpload4({
+  imageFile4,
+  setImageFile4,
+  imageLoadingState4,
+  uploadedImageUrl4,
+  setUploadedImageUrl4,
+  setImageLoadingState4,
   isEditMode,
   isCustomStyling = false,
 }) {
@@ -25,7 +25,7 @@ function ProductImageUpload({
     const selectedFile = event.target.files?.[0];
     console.log(selectedFile);
 
-    if (selectedFile) setImageFile(selectedFile);
+    if (selectedFile) setImageFile4(selectedFile);
   }
 
   function handleDragOver(event) {
@@ -35,20 +35,20 @@ function ProductImageUpload({
   function handleDrop(event) {
     event.preventDefault();
     const droppedFile = event.dataTransfer.files?.[0];
-    if (droppedFile) setImageFile(droppedFile);
+    if (droppedFile) setImageFile4(droppedFile);
   }
 
   function handleRemoveImage() {
-    setImageFile(null);
+    setImageFile4(null);
     if (inputRef.current) {
       inputRef.current.value = "";
     }
   }
 
   async function uploadImageToCloudinary() {
-    setImageLoadingState(true);
+    setImageLoadingState4(true);
     const data = new FormData();
-    data.append("my_file", imageFile);
+    data.append("my_file", imageFile4);
     const response = await axios.post(
       "http://localhost:5000/api/admin/products/upload-image",
       data
@@ -56,14 +56,14 @@ function ProductImageUpload({
     console.log(response, "response");
 
     if (response?.data?.success) {
-      setUploadedImageUrl(response.data.result.url);
-      setImageLoadingState(false);
+      setUploadedImageUrl4(response.data.result.url);
+      setImageLoadingState4(false);
     }
   }
 
   useEffect(() => {
-    if (imageFile !== null) uploadImageToCloudinary();
-  }, [imageFile]);
+    if (imageFile4 !== null) uploadImageToCloudinary();
+  }, [imageFile4]);
 
   return (
     <div
@@ -78,16 +78,16 @@ function ProductImageUpload({
         } border-2 border-dashed rounded-lg p-4`}
       >
         <Input
-          id="image-upload"
+          id="image-upload4"
           type="file"
           className="hidden"
           ref={inputRef}
           onChange={handleImageFileChange}
           disabled={isEditMode}
         />
-        {!imageFile ? (
+        {!imageFile4 ? (
           <Label
-            htmlFor="image-upload"
+            htmlFor="image-upload4"
             className={`${
               isEditMode ? "cursor-not-allowed" : ""
             } flex flex-col items-center justify-center h-32 cursor-pointer`}
@@ -95,14 +95,14 @@ function ProductImageUpload({
             <UploadCloudIcon className="w-10 h-10 text-muted-foreground mb-2" />
             <span>Drag & drop or click to upload image</span>
           </Label>
-        ) : imageLoadingState ? (
+        ) : imageLoadingState4 ? (
           <Skeleton className="h-10 bg-gray-100" />
         ) : (
           <div className="flex items-center justify-between">
             <div className="flex items-center">
               <FileIcon className="w-8 text-primary mr-2 h-8" />
             </div>
-            <p className="text-sm font-medium">{imageFile.name}</p>
+            <p className="text-sm font-medium">{imageFile4.name}</p>
             <Button
               variant="ghost"
               size="icon"
@@ -119,4 +119,4 @@ function ProductImageUpload({
   );
 }
 
-export default ProductImageUpload;
+export default ProductImageUpload4;

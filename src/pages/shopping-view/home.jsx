@@ -202,10 +202,10 @@ function ShoppingHome() {
 </div>
 
 
-     
+<KurtaPromo/>
             <SimpleSlider/>
-            <Features/>
-            <KurtaPromo/>
+            
+            
             
             
            
@@ -264,10 +264,11 @@ function ShoppingHome() {
    
      </div>
 
-     
-     <ReviewCarousel/>
      <KurtaCollection/>
+     <ReviewCarousel/>
+    
      <FeaturesComponent/>
+     <Features/>
   
   </>
   );

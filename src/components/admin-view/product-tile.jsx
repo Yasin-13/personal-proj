@@ -14,7 +14,7 @@ function AdminProductTile({
         {/* Image with 2:3 aspect ratio */}
         <div className="relative w-full pt-[150%]"> 
           <img
-            src={product?.image}
+            src={product?.image1}
             alt={product?.title}
             className="absolute top-0 left-0 w-full h-full object-cover rounded-t-lg"
           />

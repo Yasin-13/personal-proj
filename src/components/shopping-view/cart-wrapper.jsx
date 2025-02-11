@@ -38,7 +38,7 @@ function UserCartWrapper({ cartItems, setOpenCartSheet }) {
       <div className="mt-8 space-y-4">
         <div className="flex justify-between text-amber-900">
           <span className="font-bold text-lg">Total</span>
-          <span className="font-bold text-lg">${totalCartAmount.toFixed(2)}</span>
+          <span className="font-bold text-lg">₹{totalCartAmount.toFixed(2)}</span>
         </div>
       </div>
       <Button

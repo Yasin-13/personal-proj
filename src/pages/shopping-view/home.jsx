@@ -220,13 +220,14 @@ function ShoppingHome() {
       MOST LOVED
     </h2>
     <Swiper
+      style={{ overflow: 'visible' }}
       spaceBetween={10}
       slidesPerView={1}
       breakpoints={{
-        640: { slidesPerView: 1 },  // 1 item visible on small screens
-        768: { slidesPerView: 2 },  // 2 items on tablets
-        1024: { slidesPerView: 3 }, // 3 items on medium screens
-        1280: { slidesPerView: 4 }, // 4 items on larger screens
+        640: { slidesPerView: 1 },
+        768: { slidesPerView: 2 },
+        1024: { slidesPerView: 3 },
+        1280: { slidesPerView: 4 },
       }}
       navigation={{
         nextEl: '.swiper-button-next-custom',
@@ -234,33 +235,34 @@ function ShoppingHome() {
       }}
       modules={[Navigation]}
     >
-      {productList && productList.length > 0 ? (
-        productList.map((productItem, index) => (
-          <SwiperSlide key={index}>
-            <ShoppingProductTile
-              handleGetProductDetails={handleGetProductDetails}
-              product={productItem}
-              handleAddtoCart={handleAddtoCart}
-            />
-          </SwiperSlide>
-        ))
-      ) : null}
+      {productList?.map((productItem, index) => (
+        <SwiperSlide key={index}>
+          <ShoppingProductTile
+            handleGetProductDetails={handleGetProductDetails}
+            product={productItem}
+            handleAddtoCart={handleAddtoCart}
+          />
+        </SwiperSlide>
+      ))}
     </Swiper>
 
     {/* Custom Navigation Buttons */}
-    <div className="swiper-button-prev-custom absolute left-2 sm:left-4 top-1/2 transform -translate-y-1/2 bg-amber-100 text-amber-600 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-lg shadow-md cursor-pointer hover:bg-amber-200">
+    <div className="swiper-button-prev-custom absolute left-5 transform -translate-x-1/2 top-1/2 -translate-y-1/2 z-10 bg-amber-100 text-amber-600 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-lg shadow-md cursor-pointer hover:bg-amber-200 transition-colors">
       ❮
     </div>
-    <div className="swiper-button-next-custom absolute right-2 sm:right-4 top-1/2 transform -translate-y-1/2 bg-amber-100 text-amber-600 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-lg shadow-md cursor-pointer hover:bg-amber-200">
+    <div className="swiper-button-next-custom absolute right-5 transform translate-x-1/2 top-1/2 -translate-y-1/2 z-10 bg-amber-100 text-amber-600 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-lg shadow-md cursor-pointer hover:bg-amber-200 transition-colors">
       ❯
     </div>
   </div>
 </section>
-      <ProductDetailsDialog
-        open={openDetailsDialog}
-        setOpen={setOpenDetailsDialog}
-        productDetails={productDetails}
-      />
+
+<ProductDetailsDialog
+  open={openDetailsDialog}
+  setOpen={setOpenDetailsDialog}
+  productDetails={productDetails}
+/>
+
+      
    
      </div>
 

@@ -7,6 +7,7 @@ import { Input } from "../ui/input"
 import { useToast } from "../ui/use-toast"
 import { addToCart, fetchCartItems } from "@/store/shop/cart-slice"
 import { getReviews, addReview } from "@/store/shop/review-slice"
+import { setProductDetails } from "@/store/shop/products-slice";
 
 const StarRating = ({ rating, showCount, count }) => (
   <div className="flex items-center gap-2">
@@ -57,6 +58,7 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
   }, [dispatch, productDetails])
 
   const handleAddToCart = () => {
+
     if (!selectedSize) {
       toast({ title: "Please select a size", variant: "destructive" })
       return
@@ -92,6 +94,13 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
     })
   }
 
+  function handleDialogClose() {
+    setOpen(false);
+    dispatch(setProductDetails());
+    setRating(0);
+    setReviewMsg("");
+  }
+
   const handleReviewSubmit = (e) => {
     e.preventDefault()
     if (!user) {
@@ -107,17 +116,20 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
       addReview({
         productId: productDetails._id,
         userId: user.id,
-        userName: user.name,
+        userName: user.userName,
         reviewValue: rating,
         reviewMessage: reviewMsg,
       }),
-    ).then(() => {
-      setReviewMsg("")
-      setRating(0)
-      toast({ title: "Review submitted successfully!" })
-      dispatch(getReviews(productDetails._id))
-      setIsSubmitting(false)
-    })
+    ).then((data) => {
+      if (data.payload.success) {
+        setRating(0);
+        setReviewMsg("");
+        dispatch(getReviews(productDetails?._id));
+        toast({
+          title: "Review added successfully!",
+        });
+      }
+    });
   }
 
   const checkDelivery = async () => {
@@ -143,7 +155,7 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleDialogClose}>
       <DialogContent className="max-w-[95vw] xl:max-w-[1200px] p-0">
         <div className="flex flex-col lg:flex-row max-h-[90vh]">
           {/* Left: Image Gallery */}
@@ -434,6 +446,7 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
+                    
                     className="w-full bg-gradient-to-r from-amber-500 to-yellow-500 text-white hover:from-amber-600 hover:to-yellow-600"
                   >
                     {isSubmitting ? "Submitting..." : "Submit Review"}

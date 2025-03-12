@@ -81,23 +81,39 @@ function SearchProducts() {
   }, [productDetails]);
 
   return (
-    <div className="container mx-auto md:px-6 px-4 py-8">
+    <div className="container mx-auto md:px-6 px-4 py-8 ">
       <div className="flex justify-center mb-8">
-        <div className="w-full flex items-center">
-          <Input
-            value={keyword}
-            name="keyword"
-            onChange={(event) => setKeyword(event.target.value)}
-            className="py-6 border-amber-300 text-amber-800 focus:ring-2 focus:ring-amber-500 focus:outline-none"
-            placeholder="Search Products..."
-          />
-        </div>
-      </div>
-      {!searchResults.length ? (
-        <h1 className="text-5xl font-extrabold text-amber-800">
-          No result found!
-        </h1>
-      ) : null}
+  <div className="relative w-full max-w-lg">
+    <input
+      type="text"
+      value={keyword}
+      name="keyword"
+      onChange={(event) => setKeyword(event.target.value)}
+      className="w-full bg-gradient-to-r from-amber-200 via-amber-100 to-yellow-200 border border-amber-300 text-amber-800 placeholder-amber-500 rounded-full py-4 px-6 shadow-md focus:ring-2 focus:ring-amber-500 focus:outline-none transition-all"
+      placeholder="Search for products..."
+    />
+    <svg
+      className="absolute right-5 top-1/2 transform -translate-y-1/2 w-5 h-5 text-amber-800"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <circle cx="11" cy="11" r="8"></circle>
+      <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+    </svg>
+  </div>
+</div>
+
+{!searchResults.length ? (
+  <div className="flex justify-center">
+  <h1 className="text-4xl font-bold text-amber-800 animate-pulse">
+    No Results Found! 😕
+  </h1>
+</div>
+) : null}
+
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
         {searchResults.map((item) => (
           <ShoppingProductTile

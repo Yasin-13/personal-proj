@@ -258,40 +258,8 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
               </div>
             </div>
 
-            {/* Bank Offers */}
-            <div className="mb-6">
-              <h3 className="text-lg font-medium text-amber-800 mb-3">Available Offers</h3>
-              <div className="space-y-3 bg-amber-100 border border-amber-300 rounded-lg p-4 shadow-md">
-                <div className="flex gap-3 items-start border-b border-amber-300 pb-3">
-                  <Tag className="w-5 h-5 text-amber-600" />
-                  <div className="text-amber-700">
-                    <span className="font-semibold text-amber-800">Limited Time Festival Deal: </span>
-                    Get ₹250 cashback on your 10th order{" "}
-                    <span className="text-amber-500">(Offer valid for VIP customers only).</span>
-                  </div>
-                </div>
-
-                <div className="flex gap-3 items-start border-b border-amber-300 pb-3">
-                  <Tag className="w-5 h-5 text-amber-600" />
-                  <div className="text-amber-700">
-                    <span className="font-semibold text-amber-800">Premium Member Bonus: </span>
-                    Enroll in our <span className="text-amber-500">Gold Loyalty Program (₹999/year)</span> for access to
-                    special offers.
-                  </div>
-                </div>
-
-                <div className="flex gap-3 items-start">
-                  <Tag className="w-5 h-5 text-amber-600" />
-                  <div className="text-amber-700">
-                    <span className="font-semibold text-amber-800">Exclusive PayPal Offer: </span>
-                    Pay securely via PayPal & get a <span className="text-amber-500">faster checkout experience.</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* Delivery */}
-            <div className="mb-6">
+                        {/* Delivery */}
+                        <div className="mb-6">
               <h3 className="text-lg font-medium mb-3">Delivery</h3>
               <div className="flex gap-3">
                 <Input
@@ -356,6 +324,40 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                 BUY NOW
               </Button>
             </div>
+
+            {/* Bank Offers */}
+            <div className="mb-6">
+              <h3 className="text-lg font-medium text-amber-800 mb-3">Available Offers</h3>
+              <div className="space-y-3 bg-amber-100 border border-amber-300 rounded-lg p-4 shadow-md">
+                <div className="flex gap-3 items-start border-b border-amber-300 pb-3">
+                  <Tag className="w-5 h-5 text-amber-600" />
+                  <div className="text-amber-700">
+                    <span className="font-semibold text-amber-800">Limited Time Festival Deal: </span>
+                    Get ₹250 cashback on your 10th order{" "}
+                    <span className="text-amber-500">(Offer valid for VIP customers only).</span>
+                  </div>
+                </div>
+
+                <div className="flex gap-3 items-start border-b border-amber-300 pb-3">
+                  <Tag className="w-5 h-5 text-amber-600" />
+                  <div className="text-amber-700">
+                    <span className="font-semibold text-amber-800">Premium Member Bonus: </span>
+                    Enroll in our <span className="text-amber-500">Gold Loyalty Program (₹999/year)</span> for access to
+                    special offers.
+                  </div>
+                </div>
+
+                <div className="flex gap-3 items-start">
+                  <Tag className="w-5 h-5 text-amber-600" />
+                  <div className="text-amber-700">
+                    <span className="font-semibold text-amber-800">Exclusive PayPal Offer: </span>
+                    Pay securely via PayPal & get a <span className="text-amber-500">faster checkout experience.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
 
             {/* Highlights */}
             <div className="mb-6">

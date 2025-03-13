@@ -140,7 +140,7 @@ function ShoppingProductTile({ product, handleGetProductDetails, handleAddtoCart
           </Button>
         ) : (
           <Button
-            onClick={() => handleAddtoCart(product?._id, product?.totalStock)}
+            onClick={() => handleGetProductDetails(product?._id)}
             className="w-full h-12 bg-amber-600 hover:bg-amber-700 text-white font-bold transition-all hover:scale-[1.02]"
           >
             Add to Cart 🛒

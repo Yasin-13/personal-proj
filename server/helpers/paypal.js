@@ -1,9 +1,13 @@
-const paypal = require("paypal-rest-sdk");
+const Razorpay = require('razorpay');
 
-paypal.configure({
-  mode: "sandbox",
-  client_id: "AXCQhOVV2D7U-rqmgU2GueF9TtNuEOmyJnaYOh0ea50arWFEWByH8ZTUSuJ0gaPBcN0R3LP4JOtjOVuw",
-  client_secret: "EM3zVhQuO8Jq9eZmq11bNBKNDQOw26_xXExMtt9fIjFURwBySPeZ760dvTB5K2lfuNd4sbQBZTiGsGot",
+console.log("Initializing Razorpay configuration"); 
+
+
+const razorpay = new Razorpay({
+  key_id: "rzp_test_RU5Isgnso9RSwv", 
+  key_secret: "g3qWxdImEq6HEn32b9gz9CoX", 
 });
 
-module.exports = paypal;
+console.log("Razorpay instance created:", !!razorpay); 
+
+module.exports = razorpay;

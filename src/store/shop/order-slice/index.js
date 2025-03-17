@@ -21,14 +21,16 @@ export const createNewOrder = createAsyncThunk(
   }
 );
 
+// Updated to match Razorpay parameters
 export const capturePayment = createAsyncThunk(
   "/order/capturePayment",
-  async ({ paymentId, payerId, orderId }) => {
+  async ({ razorpayOrderId, razorpayPaymentId, razorpaySignature, orderId }) => {
     const response = await axios.post(
       "http://localhost:5000/api/shop/order/capture",
       {
-        paymentId,
-        payerId,
+        razorpayOrderId,
+        razorpayPaymentId,
+        razorpaySignature,
         orderId,
       }
     );
@@ -85,6 +87,17 @@ const shoppingOrderSlice = createSlice({
         state.isLoading = false;
         state.approvalURL = null;
         state.orderId = null;
+      })
+      // Add cases for capturePayment
+      .addCase(capturePayment.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(capturePayment.fulfilled, (state, action) => {
+        state.isLoading = false;
+        // Update state if needed based on capture response
+      })
+      .addCase(capturePayment.rejected, (state) => {
+        state.isLoading = false;
       })
       .addCase(getAllOrdersByUserId.pending, (state) => {
         state.isLoading = true;

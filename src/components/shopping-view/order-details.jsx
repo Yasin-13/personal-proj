@@ -1,89 +1,161 @@
-import { useSelector } from "react-redux";
-import { Badge } from "../ui/badge";
-import { DialogContent } from "../ui/dialog";
-import { Label } from "../ui/label";
-import { Separator } from "../ui/separator";
+"use client"
+
+import { useSelector } from "react-redux"
+import {
+  FaBox,
+  FaCalendarAlt,
+  FaRupeeSign,
+  FaCreditCard,
+  FaTruck,
+  FaMapMarkerAlt,
+  FaCheckCircle,
+  FaTimesCircle,
+  FaCrown,
+} from "react-icons/fa"
+import { Badge } from "@/components/ui/badge"
+import { DialogContent } from "@/components/ui/dialog"
 
 function ShoppingOrderDetailsView({ orderDetails }) {
-  const { user } = useSelector((state) => state.auth);
+  const { user } = useSelector((state) => state.auth)
+
+  if (!orderDetails) {
+    return (
+      <DialogContent className="sm:max-w-[600px] max-h-[85vh] p-0 overflow-hidden border-2 border-amber-400">
+        <div className="flex items-center justify-center h-64">
+          <p className="text-amber-800">Loading order details...</p>
+        </div>
+      </DialogContent>
+    )
+  }
 
   return (
-    <DialogContent className="sm:max-w-[600px] bg-gradient-to-b from-amber-200 via-amber-100 to-yellow-200">
-      <div className="grid gap-6">
-        <div className="grid gap-2">
-          <div className="flex mt-6 items-center justify-between">
-            <p className="font-medium text-amber-800">Order ID</p>
-            <Label className="text-amber-600">{orderDetails?._id}</Label>
+    <DialogContent className="sm:max-w-[600px] max-h-[85vh] p-0 overflow-hidden border-2 border-amber-400">
+      {/* Header with gradient */}
+      <div className="bg-gradient-to-r from-amber-600 via-yellow-500 to-amber-600 p-4 flex items-center gap-3">
+        <FaCrown className="text-yellow-200 text-2xl" />
+        <h1 className="text-xl font-bold text-white">Order Details</h1>
+      </div>
+
+      {/* Scrollable content area using standard CSS */}
+      <div className="overflow-y-auto max-h-[calc(85vh-80px)] bg-gradient-to-b from-amber-50 to-yellow-50">
+        <div className="p-6 space-y-6">
+          {/* Order Information */}
+          <div className="bg-white rounded-xl p-5 shadow-md border border-amber-200">
+            <h2 className="text-lg font-bold text-amber-900 flex items-center gap-2 mb-4">
+              <FaBox className="text-amber-600" /> Order Summary
+            </h2>
+
+            <div className="grid gap-3">
+              <div className="flex justify-between items-center">
+                <span className="font-medium text-amber-800">Order ID:</span>
+                <span className="text-amber-700 bg-amber-50 px-3 py-1 rounded-md font-mono text-sm">
+                  {orderDetails._id}
+                </span>
+              </div>
+
+              <div className="flex justify-between items-center">
+                <span className="font-medium text-amber-800 flex items-center gap-1">
+                  <FaCalendarAlt className="text-amber-600" /> Order Date:
+                </span>
+                <span className="text-amber-700 font-medium">{orderDetails.orderDate.split("T")[0]}</span>
+              </div>
+
+              <div className="flex justify-between items-center bg-amber-100 p-2 rounded-lg mt-2">
+                <span className="font-medium text-amber-800 flex items-center gap-1">
+                  <FaRupeeSign className="text-amber-600" /> Total Amount:
+                </span>
+                <span className="text-amber-900 font-bold text-lg">₹{orderDetails.totalAmount}</span>
+              </div>
+            </div>
           </div>
-          <div className="flex mt-2 items-center justify-between">
-            <p className="font-medium text-amber-800">Order Date</p>
-            <Label className="text-amber-600">
-              {orderDetails?.orderDate.split("T")[0]}
-            </Label>
+
+          {/* Payment Details */}
+          <div className="bg-white rounded-xl p-5 shadow-md border border-amber-200">
+            <h2 className="text-lg font-bold text-amber-900 flex items-center gap-2 mb-4">
+              <FaCreditCard className="text-amber-600" /> Payment Information
+            </h2>
+
+            <div className="grid gap-3">
+              <div className="flex justify-between items-center">
+                <span className="font-medium text-amber-800">Payment Method:</span>
+                <Badge variant="outline" className="bg-amber-50 text-amber-800 border-amber-300">
+                  {orderDetails.paymentMethod}
+                </Badge>
+              </div>
+
+              <div className="flex justify-between items-center">
+  <span className="font-medium">Payment Status:</span>
+  <span>{orderDetails.paymentStatus}</span>
+</div>
+
+<div className="flex justify-between items-center mt-2">
+  <span className="font-medium">Order Status:</span>
+  <span>{orderDetails.orderStatus}</span>
+</div>
+            </div>
           </div>
-          <div className="flex mt-2 items-center justify-between">
-            <p className="font-medium text-amber-800">Order Price</p>
-            <Label className="text-amber-600">₹{orderDetails?.totalAmount}</Label>
+
+          {/* Items Ordered */}
+          <div className="bg-white rounded-xl p-5 shadow-md border border-amber-200">
+            <h2 className="text-lg font-bold text-amber-900 flex items-center gap-2 mb-4">
+              <FaBox className="text-amber-600" /> Ordered Items
+            </h2>
+
+            {orderDetails.cartItems && orderDetails.cartItems.length > 0 ? (
+              <div className="bg-amber-50 rounded-lg overflow-hidden border border-amber-200">
+                <div className="grid grid-cols-3 bg-amber-200 p-2 font-medium text-amber-900">
+                  <div>Item</div>
+                  <div className="text-center">Qty</div>
+                  <div className="text-right">Price</div>
+                </div>
+
+                <div className="overflow-y-auto max-h-[200px]">
+                  <ul className="divide-y divide-amber-100">
+                    {orderDetails.cartItems.map((item, index) => (
+                      <li key={index} className="grid grid-cols-3 p-3 hover:bg-amber-50 transition-colors">
+                        <span className="font-medium text-amber-900 truncate" title={item.title}>
+                          {item.title}
+                        </span>
+                        <span className="text-center text-amber-700">×{item.quantity}</span>
+                        <span className="text-right font-medium text-amber-900">₹{item.price}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            ) : (
+              <div className="text-amber-500 bg-amber-50 p-4 rounded-lg text-center">No items found</div>
+            )}
           </div>
-          <div className="flex mt-2 items-center justify-between">
-            <p className="font-medium text-amber-800">Payment Method</p>
-            <Label className="text-amber-600">{orderDetails?.paymentMethod}</Label>
-          </div>
-          <div className="flex mt-2 items-center justify-between">
-            <p className="font-medium text-amber-800">Payment Status</p>
-            <Label className="text-amber-600">{orderDetails?.paymentStatus}</Label>
-          </div>
-          <div className="flex mt-2 items-center justify-between">
-            <p className="font-medium text-amber-800">Order Status</p>
-            <Label>
-              <Badge
-                className={`py-1 px-3 text-amber-100 ${
-                  orderDetails?.orderStatus === "confirmed"
-                    ? "bg-green-500"
-                    : orderDetails?.orderStatus === "rejected"
-                    ? "bg-red-600"
-                    : "bg-black"
-                }`}
-              >
-                {orderDetails?.orderStatus}
-              </Badge>
-            </Label>
-          </div>
-        </div>
-        <Separator />
-        <div className="grid gap-4">
-          <div className="grid gap-2">
-            <div className="font-medium text-amber-800">Order Details</div>
-            <ul className="grid gap-3">
-              {orderDetails?.cartItems && orderDetails?.cartItems.length > 0
-                ? orderDetails.cartItems.map((item) => (
-                    <li className="flex items-center justify-between text-amber-700">
-                      <span>Title: {item.title}</span>
-                      <span>Quantity: {item.quantity}</span>
-                      <span>Price: ₹{item.price}</span>
-                    </li>
-                  ))
-                : null}
-            </ul>
-          </div>
-        </div>
-        <Separator />
-        <div className="grid gap-4">
-          <div className="grid gap-2">
-            <div className="font-medium text-amber-800">Shipping Info</div>
-            <div className="grid gap-0.5 text-amber-700">
-              <span>{user.userName}</span>
-              <span>{orderDetails?.addressInfo?.address}</span>
-              <span>{orderDetails?.addressInfo?.city}</span>
-              <span>{orderDetails?.addressInfo?.pincode}</span>
-              <span>{orderDetails?.addressInfo?.phone}</span>
-              <span>{orderDetails?.addressInfo?.notes}</span>
+
+          {/* Shipping Details */}
+          <div className="bg-white rounded-xl p-5 shadow-md border border-amber-200">
+            <h2 className="text-lg font-bold text-amber-900 flex items-center gap-2 mb-4">
+              <FaMapMarkerAlt className="text-amber-600" /> Shipping Information
+            </h2>
+
+            <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-4 rounded-lg border border-amber-200">
+              <div className="space-y-2">
+                <div className="font-bold text-amber-900">{user.userName}</div>
+                <div className="text-amber-800">{orderDetails.addressInfo?.address}</div>
+                <div className="text-amber-800">
+                  {orderDetails.addressInfo?.city} - {orderDetails.addressInfo?.pincode}
+                </div>
+                <div className="text-amber-800">Phone: {orderDetails.addressInfo?.phone}</div>
+
+                {orderDetails.addressInfo?.notes && (
+                  <div className="mt-3 p-2 bg-amber-100 rounded border-l-4 border-amber-500 text-amber-700">
+                    <span className="font-medium">Note:</span> {orderDetails.addressInfo.notes}
+                  </div>
+                )}
+              </div>
             </div>
           </div>
         </div>
       </div>
     </DialogContent>
-  );
+  )
 }
 
-export default ShoppingOrderDetailsView;
+export default ShoppingOrderDetailsView
+

@@ -11,11 +11,12 @@ import { useToast } from "../ui/use-toast"
 import { MapPin, Plus, Edit } from "lucide-react"
 
 const initialAddressFormData = {
+  name:"",
   address: "",
   city: "",
   phone: "",
   pincode: "",
-  notes: "",
+  email: "",
 }
 
 function Address({ setCurrentSelectedAddress, selectedId }) {
@@ -87,11 +88,12 @@ function Address({ setCurrentSelectedAddress, selectedId }) {
     setCurrentEditedId(getCuurentAddress?._id)
     setFormData({
       ...formData,
+      name: getCuurentAddress?.name,
       address: getCuurentAddress?.address,
       city: getCuurentAddress?.city,
       phone: getCuurentAddress?.phone,
       pincode: getCuurentAddress?.pincode,
-      notes: getCuurentAddress?.notes,
+      email: getCuurentAddress?.email,
     })
   }
 

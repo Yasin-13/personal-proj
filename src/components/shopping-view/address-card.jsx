@@ -31,6 +31,9 @@ function AddressCard({
       )}
 
       <CardContent className="grid gap-3 text-amber-900">
+      <Label className="font-bold">
+          Name: <span className="font-normal">{addressInfo?.name}</span>
+        </Label>
         <Label className="font-bold">
           Address: <span className="font-normal">{addressInfo?.address}</span>
         </Label>
@@ -43,9 +46,9 @@ function AddressCard({
         <Label className="font-bold">
           Phone: <span className="font-normal">{addressInfo?.phone}</span>
         </Label>
-        {addressInfo?.notes && (
+        {addressInfo?.email && (
           <Label className="font-bold">
-            Notes: <span className="font-normal">{addressInfo?.notes}</span>
+            Email: <span className="font-normal">{addressInfo?.email}</span>
           </Label>
         )}
       </CardContent>

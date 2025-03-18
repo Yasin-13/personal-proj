@@ -137,15 +137,16 @@ function ShoppingOrderDetailsView({ orderDetails }) {
             <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-4 rounded-lg border border-amber-200">
               <div className="space-y-2">
                 <div className="font-bold text-amber-900">{user.userName}</div>
+                <div className="text-amber-800">{orderDetails.addressInfo?.name}</div>
                 <div className="text-amber-800">{orderDetails.addressInfo?.address}</div>
                 <div className="text-amber-800">
                   {orderDetails.addressInfo?.city} - {orderDetails.addressInfo?.pincode}
                 </div>
                 <div className="text-amber-800">Phone: {orderDetails.addressInfo?.phone}</div>
 
-                {orderDetails.addressInfo?.notes && (
+                {orderDetails.addressInfo?.email && (
                   <div className="mt-3 p-2 bg-amber-100 rounded border-l-4 border-amber-500 text-amber-700">
-                    <span className="font-medium">Note:</span> {orderDetails.addressInfo.notes}
+                    <span className="font-medium">Email:</span> {orderDetails.addressInfo.email}
                   </div>
                 )}
               </div>

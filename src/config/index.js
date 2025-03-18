@@ -265,6 +265,13 @@ export const sortOptions = [
 
 export const addressFormControls = [
   {
+    label: "Name",
+    name: "name",
+    componentType: "input",
+    type: "text",
+    placeholder: "Enter your Name",
+  },
+  {
     label: "Address",
     name: "address",
     componentType: "input",
@@ -293,9 +300,9 @@ export const addressFormControls = [
     placeholder: "Enter your phone number",
   },
   {
-    label: "Notes",
-    name: "notes",
-    componentType: "textarea",
-    placeholder: "Enter any additional notes",
+    label: "Email",
+    name: "email",
+    componentType: "input",
+    placeholder: "Enter email for order related updates",
   },
 ];

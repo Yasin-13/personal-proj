@@ -113,11 +113,12 @@ function ShoppingCheckout() {
         })),
         addressInfo: {
           addressId: currentSelectedAddress?._id,
+          name: currentSelectedAddress?.name,
           address: currentSelectedAddress?.address,
           city: currentSelectedAddress?.city,
           pincode: currentSelectedAddress?.pincode,
           phone: currentSelectedAddress?.phone,
-          notes: currentSelectedAddress?.notes,
+          email: currentSelectedAddress?.email,
         },
         orderStatus: "pending",
         paymentMethod: "razorpay",

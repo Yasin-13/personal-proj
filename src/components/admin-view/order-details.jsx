@@ -1,3 +1,4 @@
+"use client"
 
 import { useState } from "react"
 import CommonForm from "../common/form"
@@ -6,8 +7,9 @@ import { Badge } from "@/components/ui/badge"
 import { useDispatch, useSelector } from "react-redux"
 import { getAllOrdersForAdmin, getOrderDetailsForAdmin, updateOrderStatus } from "@/store/admin/order-slice"
 import { useToast } from "@/components/ui/use-toast"
-import { Box, CalendarDays, CreditCard, Crown, MapPin, CheckCircle, XCircle, Truck } from "lucide-react"
-import {FaRupeeSign} from "react-icons/fa"
+import { Box, CalendarDays, CreditCard, Crown, MapPin, Truck } from "lucide-react"
+import { FaRupeeSign } from "react-icons/fa"
+
 const initialFormData = {
   status: "",
 }
@@ -78,7 +80,7 @@ function AdminOrderDetailsView({ orderDetails }) {
 
               <div className="flex justify-between items-center bg-amber-100 p-2 rounded-lg">
                 <span className="font-medium text-amber-800 flex items-center gap-1">
-                   <FaRupeeSign className="text-amber-600 h-4 w-4" /> Total Amount:
+                  <FaRupeeSign className="text-amber-600 h-4 w-4" /> Total Amount:
                 </span>
                 <span className="text-amber-900 font-bold text-lg">₹{orderDetails.totalAmount}</span>
               </div>
@@ -100,22 +102,22 @@ function AdminOrderDetailsView({ orderDetails }) {
               </div>
 
               <div className="flex justify-between items-center">
-  <span className="font-medium text-amber-800">Payment Status:</span>
-  <Badge className="py-1 px-3 bg-amber-100 text-amber-900 border-amber-300">
-    {orderDetails.paymentStatus}
-  </Badge>
-</div>
+                <span className="font-medium text-amber-800">Payment Status:</span>
+                <Badge className="py-1 px-3 bg-amber-100 text-amber-900 border-amber-300">
+                  {orderDetails.paymentStatus}
+                </Badge>
+              </div>
 
-<div className="flex justify-between items-center mt-2">
-  <span className="font-medium text-amber-800">Order Status:</span>
-  <Badge className="py-1 px-3 bg-amber-100 text-amber-900 border-amber-300">
-    {orderDetails.orderStatus}
-  </Badge>
-</div>
+              <div className="flex justify-between items-center mt-2">
+                <span className="font-medium text-amber-800">Order Status:</span>
+                <Badge className="py-1 px-3 bg-amber-100 text-amber-900 border-amber-300">
+                  {orderDetails.orderStatus}
+                </Badge>
+              </div>
             </div>
           </div>
 
-          {/* Items Ordered */}
+          {/* Items Ordered - REFACTORED TO SHOW IMAGES */}
           <div className="bg-white rounded-xl p-5 shadow-md border border-amber-200">
             <h2 className="text-lg font-bold text-amber-900 flex items-center gap-2 mb-4">
               <Box className="text-amber-600 h-5 w-5" /> Ordered Items
@@ -123,25 +125,46 @@ function AdminOrderDetailsView({ orderDetails }) {
 
             {orderDetails.cartItems && orderDetails.cartItems.length > 0 ? (
               <div className="bg-amber-50 rounded-lg overflow-hidden border border-amber-200">
-                <div className="grid grid-cols-3 bg-amber-200 p-2 font-medium text-amber-900">
+                <div className="grid grid-cols-4 bg-amber-200 p-2 font-medium text-amber-900">
+                  <div>Image</div>
                   <div>Item</div>
                   <div className="text-center">Qty</div>
                   <div className="text-right">Price</div>
                 </div>
 
                 <div className="overflow-y-auto max-h-[200px]">
-                  <ul className="divide-y divide-amber-100">
-                    {orderDetails.cartItems.map((item, index) => (
-                      <li key={index} className="grid grid-cols-3 p-3 hover:bg-amber-50 transition-colors">
-                        <span className="font-medium text-amber-900 truncate" title={item.title}>
-                          {item.title}
-                        </span>
-                        <span className="text-center text-amber-700">×{item.quantity}</span>
-                        <span className="text-right font-medium text-amber-900">₹{item.price}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+  <ul className="divide-y divide-amber-100">
+    {orderDetails.cartItems.map((item, index) => (
+      <li
+        key={index}
+        className="grid grid-cols-4 p-3 hover:bg-amber-50 transition-colors items-center"
+      >
+        <div className="flex items-center justify-center">
+          {item.image ? (
+            <div className="w-12 h-18 rounded-md overflow-hidden border border-amber-200">
+              <img
+                src={item.image || "/placeholder.svg"}
+                alt={item.title}
+                className="w-full h-full object-cover"
+                style={{ aspectRatio: "2 / 3" }} // Yeh aspect ratio fix karega
+              />
+            </div>
+          ) : (
+            <div className="w-12 h-18 bg-amber-100 rounded-md flex items-center justify-center">
+              <Box className="w-6 h-6 text-amber-400" />
+            </div>
+          )}
+        </div>
+        <span className="font-medium text-amber-900 truncate" title={item.title}>
+          {item.title}
+        </span>
+        <span className="text-center text-amber-700">×{item.quantity}</span>
+        <span className="text-right font-medium text-amber-900">₹{item.price}</span>
+      </li>
+    ))}
+  </ul>
+</div>
+
               </div>
             ) : (
               <div className="text-amber-500 bg-amber-50 p-4 rounded-lg text-center">No items found</div>
@@ -156,7 +179,7 @@ function AdminOrderDetailsView({ orderDetails }) {
 
             <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-4 rounded-lg border border-amber-200">
               <div className="space-y-2">
-                <div className="font-bold text-amber-900">{user.userName}</div>
+                <div className="font-bold text-amber-900">User: {orderDetails.userId}</div>
                 <div className="text-amber-800">{orderDetails.addressInfo?.name}</div>
                 <div className="text-amber-800">{orderDetails.addressInfo?.address}</div>
                 <div className="text-amber-800">

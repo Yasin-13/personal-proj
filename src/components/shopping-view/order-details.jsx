@@ -1,17 +1,7 @@
 "use client"
 
 import { useSelector } from "react-redux"
-import {
-  FaBox,
-  FaCalendarAlt,
-  FaRupeeSign,
-  FaCreditCard,
-  FaTruck,
-  FaMapMarkerAlt,
-  FaCheckCircle,
-  FaTimesCircle,
-  FaCrown,
-} from "react-icons/fa"
+import { FaBox, FaCalendarAlt, FaRupeeSign, FaCreditCard, FaMapMarkerAlt, FaCrown, FaImage } from "react-icons/fa"
 import { Badge } from "@/components/ui/badge"
 import { DialogContent } from "@/components/ui/dialog"
 
@@ -84,18 +74,22 @@ function ShoppingOrderDetailsView({ orderDetails }) {
               </div>
 
               <div className="flex justify-between items-center">
-  <span className="font-medium">Payment Status:</span>
-  <span>{orderDetails.paymentStatus}</span>
-</div>
+                <span className="font-medium text-amber-800">Payment Status:</span>
+                <Badge className="py-1 px-3 bg-amber-100 text-amber-900 border-amber-300">
+                  {orderDetails.paymentStatus}
+                </Badge>
+              </div>
 
-<div className="flex justify-between items-center mt-2">
-  <span className="font-medium">Order Status:</span>
-  <span>{orderDetails.orderStatus}</span>
-</div>
+              <div className="flex justify-between items-center mt-2">
+                <span className="font-medium text-amber-800">Order Status:</span>
+                <Badge className="py-1 px-3 bg-amber-100 text-amber-900 border-amber-300">
+                  {orderDetails.orderStatus}
+                </Badge>
+              </div>
             </div>
           </div>
 
-          {/* Items Ordered */}
+          {/* Items Ordered - REFACTORED TO SHOW IMAGES */}
           <div className="bg-white rounded-xl p-5 shadow-md border border-amber-200">
             <h2 className="text-lg font-bold text-amber-900 flex items-center gap-2 mb-4">
               <FaBox className="text-amber-600" /> Ordered Items
@@ -103,25 +97,45 @@ function ShoppingOrderDetailsView({ orderDetails }) {
 
             {orderDetails.cartItems && orderDetails.cartItems.length > 0 ? (
               <div className="bg-amber-50 rounded-lg overflow-hidden border border-amber-200">
-                <div className="grid grid-cols-3 bg-amber-200 p-2 font-medium text-amber-900">
+                <div className="grid grid-cols-4 bg-amber-200 p-2 font-medium text-amber-900">
+                  <div>Image</div>
                   <div>Item</div>
                   <div className="text-center">Qty</div>
                   <div className="text-right">Price</div>
                 </div>
 
                 <div className="overflow-y-auto max-h-[200px]">
-                  <ul className="divide-y divide-amber-100">
-                    {orderDetails.cartItems.map((item, index) => (
-                      <li key={index} className="grid grid-cols-3 p-3 hover:bg-amber-50 transition-colors">
-                        <span className="font-medium text-amber-900 truncate" title={item.title}>
-                          {item.title}
-                        </span>
-                        <span className="text-center text-amber-700">×{item.quantity}</span>
-                        <span className="text-right font-medium text-amber-900">₹{item.price}</span>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+  <ul className="divide-y divide-amber-100">
+    {orderDetails.cartItems.map((item, index) => (
+      <li
+        key={index}
+        className="grid grid-cols-4 p-3 hover:bg-amber-50 transition-colors items-center"
+      >
+        <div className="flex items-center justify-center">
+          {item.image ? (
+            <div className="w-[40px] h-[60px] rounded-md overflow-hidden border border-amber-200">
+              <img
+                src={item.image || "/placeholder.svg"}
+                alt={item.title}
+                className="w-full h-full object-cover"
+              />
+            </div>
+          ) : (
+            <div className="w-[40px] h-[60px] bg-amber-100 rounded-md flex items-center justify-center">
+              <FaImage className="text-amber-400 text-lg" />
+            </div>
+          )}
+        </div>
+        <span className="font-medium text-amber-900 truncate" title={item.title}>
+          {item.title}
+        </span>
+        <span className="text-center text-amber-700">×{item.quantity}</span>
+        <span className="text-right font-medium text-amber-900">₹{item.price}</span>
+      </li>
+    ))}
+  </ul>
+</div>
+
               </div>
             ) : (
               <div className="text-amber-500 bg-amber-50 p-4 rounded-lg text-center">No items found</div>

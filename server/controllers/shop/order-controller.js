@@ -184,8 +184,7 @@ try {
   const subtotal = order.cartItems.reduce((sum, item) => sum + (parseFloat(item.price) * item.quantity), 0);
   
   const orderDetails = `
-  
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
   <style>
@@ -193,33 +192,37 @@ try {
     .container { max-width: 600px; margin: 0 auto; padding: 20px; }
     .header { background-color: #4a154b; color: white; padding: 15px; text-align: center; border-radius: 5px 5px 0 0; }
     .content { border: 1px solid #ddd; border-top: none; padding: 20px; border-radius: 0 0 5px 5px; }
-    .order-info { background-color: #f9f9f9; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
-    .address-info { background-color: #f9f9f9; padding: 15px; margin-bottom: 20px; border-radius: 5px; }
+    .order-info, .address-info { background-color: #f9f9f9; padding: 15px; margin-bottom: 20px; border-radius: 5px; word-wrap: break-word; }
+    
+    /* Table Styling */
     table { width: 100%; border-collapse: collapse; margin-bottom: 20px; table-layout: fixed; }
-    th { background-color: #f2f2f2; text-align: left; padding: 10px; font-size: 14px; }
-    td { padding: 10px; border-bottom: 1px solid #ddd; font-size: 14px; word-wrap: break-word; }
-    .product-image { width: 50px; height: 75px; object-fit: cover; }
-    .footer { text-align: center; margin-top: 20px; font-size: 12px; color: #777; }
-    .total-row { font-weight: bold; background-color: #f2f2f2; }
+    th, td { padding: 10px; border-bottom: 1px solid #ddd; font-size: 14px; word-wrap: break-word; text-align: center; }
+    th { background-color: #f2f2f2; font-size: 14px; }
     
-    /* Column widths for better layout */
-    .col-product { width: 25%; }
-    .col-image { width: 15%; }
-    .col-price { width: 15%; }
-    .col-qty { width: 15%; }
-    .col-total { width: 15%; }
+    /* Column Widths (Fixing Out-of-the-box issue) */
+    .col-product { width: 30%; text-align: left; }
+    .col-image { width: 12%; }
+    .col-price, .col-size, .col-qty, .col-total { width: 12%; }
+
+    /* Image Styling */
+    .product-image { width: 50px; height: 75px; object-fit: cover; border-radius: 5px; }
+
+    /* Total Row Styling */
+    .total-row { font-weight: bold; background-color: #f2f2f2; text-align: right; }
     
-    /* Digital signature and receipt styling */
+    /* Signature & Notice */
     .signature-section { margin-top: 30px; border-top: 1px dashed #ccc; padding-top: 20px; }
     .digital-signature { text-align: right; margin-top: 20px; }
     .signature-name { font-weight: bold; margin-top: 5px; }
-    .receipt-notice { background-color: #f9f9f9; padding: 10px; border-radius: 5px; margin-top: 20px; font-size: 12px; }
-    
-    /* Responsive adjustments */
+    .receipt-notice { background-color: #f9f9f9; padding: 10px; border-radius: 5px; margin-top: 20px; font-size: 12px; text-align: center; }
+
+    /* Responsive Fixes */
     @media screen and (max-width: 480px) {
-      table, th, td { font-size: 12px; }
-      th, td { padding: 8px 5px; }
+      .container { padding: 10px; }
+      table, th, td { font-size: 12px; padding: 5px; }
       .product-image { width: 40px; height: 60px; }
+      .col-product { width: 40%; } /* More space for product names */
+      .col-image, .col-price, .col-size, .col-qty, .col-total { width: 10%; }
     }
   </style>
 </head>
@@ -255,24 +258,28 @@ try {
           <th class="col-product">Product</th>
           <th class="col-image">Image</th>
           <th class="col-price">Price</th>
+          <th class="col-size">Size</th>
           <th class="col-qty">Quantity</th>
           <th class="col-total">Total</th>
         </tr>
-        ${order.cartItems.map(item => `
+        ${order.cartItems.map(item => ` 
           <tr>
             <td class="col-product">${item.title || 'Product'}</td>
-            <td class="col-image">${item.image ? `<img src="${item.image}" class="product-image" alt="${item.title}">` : 'No image'}</td>
+            <td class="col-image">
+              ${item.image ? `<img src="${item.image}" class="product-image" alt="${item.title}">` : 'No image'}
+            </td>
             <td class="col-price">₹${item.price || '0'}</td>
+            <td class="col-size">${item.size || 'NA'}</td>
             <td class="col-qty">${item.quantity || '0'}</td>
             <td class="col-total">₹${(parseFloat(item.price || 0) * (item.quantity || 0)).toFixed(2)}</td>
           </tr>
         `).join('')}
         <tr class="total-row">
-          <td colspan="4" style="text-align: right;"><strong>Subtotal:</strong></td>
+          <td colspan="5"><strong>Subtotal:</strong></td>
           <td>₹${subtotal.toFixed(2)}</td>
         </tr>
         <tr class="total-row">
-          <td colspan="4" style="text-align: right;"><strong>Total Amount:</strong></td>
+          <td colspan="5"><strong>Total Amount:</strong></td>
           <td>₹${order.totalAmount.toFixed(2)}</td>
         </tr>
       </table>
@@ -297,6 +304,7 @@ try {
   </div>
 </body>
 </html>
+
   `;
 
   await sendMail(
@@ -313,30 +321,42 @@ try {
 
 
 
-      // Update product stock
-      console.log(`[${new Date().toISOString()}] Updating product stock for`, order.cartItems.length, "items") // Log items count
+      // Update product stock based on size
+console.log(`[${new Date().toISOString()}] Updating product stock for`, order.cartItems.length, "items");
 
-      try {
-        for (const item of order.cartItems) {
-          console.log(`[${new Date().toISOString()}] Processing item:`, item.productId) // Log item being processed
+try {
+  for (const item of order.cartItems) {
+    console.log(`[${new Date().toISOString()}] Processing item:`, item.productId, "Size:", item.size);
 
-          const product = await Product.findById(item.productId)
-          if (!product) {
-            console.log(`[${new Date().toISOString()}] Product not found with ID:`, item.productId) // Log product ID that wasn't found
-            continue // Skip this item but continue processing others
-          }
+    const product = await Product.findById(item.productId);
+    if (!product) {
+      console.log(`[${new Date().toISOString()}] Product not found with ID:`, item.productId);
+      continue; // Skip this item but continue processing others
+    }
 
-          console.log(`[${new Date().toISOString()}] Current stock:`, product.totalStock, "Quantity ordered:", item.quantity) // Log stock details
-          product.totalStock = Math.max(0, product.totalStock - item.quantity)
-          console.log(`[${new Date().toISOString()}] New stock level:`, product.totalStock) // Log new stock level
+    // Find the size in the product's sizes array
+    const sizeIndex = product.sizes.findIndex((s) => s.size === item.size);
+    if (sizeIndex === -1) {
+      console.log(`[${new Date().toISOString()}] Size '${item.size}' not found for Product ID:`, item.productId);
+      continue;
+    }
 
-          await product.save()
-          console.log(`[${new Date().toISOString()}] Product stock updated successfully`) // Log success
-        }
-      } catch (inventoryError) {
-        // Log but don't fail the payment process
-        console.log(`[${new Date().toISOString()}] Error updating inventory (non-critical):`, inventoryError)
-      }
+    console.log(`[${new Date().toISOString()}] Current stock for size ${item.size}:`, product.sizes[sizeIndex].stock);
+    
+    // Reduce stock but ensure it doesn't go negative
+    product.sizes[sizeIndex].stock = Math.max(0, product.sizes[sizeIndex].stock - item.quantity);
+    console.log(`[${new Date().toISOString()}] New stock level for size ${item.size}:`, product.sizes[sizeIndex].stock);
+
+    // Recalculate total stock
+    product.totalStock = product.sizes.reduce((sum, s) => sum + s.stock, 0);
+    console.log(`[${new Date().toISOString()}] Updated total stock:`, product.totalStock);
+
+    await product.save();
+    console.log(`[${new Date().toISOString()}] Product stock updated successfully`);
+  }
+} catch (inventoryError) {
+  console.log(`[${new Date().toISOString()}] Error updating inventory (non-critical):`, inventoryError);
+}
 
       // Remove the cart
       if (order.cartId) {

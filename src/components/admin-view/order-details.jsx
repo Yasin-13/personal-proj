@@ -119,57 +119,72 @@ function AdminOrderDetailsView({ orderDetails }) {
 
           {/* Items Ordered - REFACTORED TO SHOW IMAGES */}
           <div className="bg-white rounded-xl p-5 shadow-md border border-amber-200">
-            <h2 className="text-lg font-bold text-amber-900 flex items-center gap-2 mb-4">
-              <Box className="text-amber-600 h-5 w-5" /> Ordered Items
-            </h2>
+  <h2 className="text-lg font-bold text-amber-900 flex items-center gap-2 mb-4">
+    <Box className="text-amber-600 h-5 w-5" /> Ordered Items
+  </h2>
 
-            {orderDetails.cartItems && orderDetails.cartItems.length > 0 ? (
-              <div className="bg-amber-50 rounded-lg overflow-hidden border border-amber-200">
-                <div className="grid grid-cols-4 bg-amber-200 p-2 font-medium text-amber-900">
-                  <div>Image</div>
-                  <div>Item</div>
-                  <div className="text-center">Qty</div>
-                  <div className="text-right">Price</div>
-                </div>
+  {orderDetails.cartItems && orderDetails.cartItems.length > 0 ? (
+    <div className="bg-amber-50 rounded-lg overflow-hidden border border-amber-200">
+      {/* Header Row */}
+      <div className="grid grid-cols-5 bg-amber-200 p-2 font-medium text-amber-900 text-center">
+        <div>Product Img</div>
+        <div>Item</div>
+        <div>Size</div>
+        <div>Qty</div>
+        <div className="text-right">Price</div>
+      </div>
 
-                <div className="overflow-y-auto max-h-[200px]">
-  <ul className="divide-y divide-amber-100">
-    {orderDetails.cartItems.map((item, index) => (
-      <li
-        key={index}
-        className="grid grid-cols-4 p-3 hover:bg-amber-50 transition-colors items-center"
-      >
-        <div className="flex items-center justify-center">
-          {item.image ? (
-            <div className="w-12 h-18 rounded-md overflow-hidden border border-amber-200">
-              <img
-                src={item.image || "/placeholder.svg"}
-                alt={item.title}
-                className="w-full h-full object-cover"
-                style={{ aspectRatio: "2 / 3" }} // Yeh aspect ratio fix karega
-              />
-            </div>
-          ) : (
-            <div className="w-12 h-18 bg-amber-100 rounded-md flex items-center justify-center">
-              <Box className="w-6 h-6 text-amber-400" />
-            </div>
-          )}
-        </div>
-        <span className="font-medium text-amber-900 truncate" title={item.title}>
-          {item.title}
-        </span>
-        <span className="text-center text-amber-700">×{item.quantity}</span>
-        <span className="text-right font-medium text-amber-900">₹{item.price}</span>
-      </li>
-    ))}
-  </ul>
+      {/* Items List */}
+      <div className="overflow-y-auto max-h-[250px]">
+        <ul className="divide-y divide-amber-100">
+          {orderDetails.cartItems.map((item, index) => (
+            <li
+              key={index}
+              className="grid grid-cols-5 p-3 hover:bg-amber-50 transition items-center"
+            >
+              {/* Image */}
+              <div className="flex justify-center">
+                {item.image ? (
+                  <div className="w-12 h-18 rounded-md overflow-hidden border border-amber-200">
+                    <img
+                      src={item.image || "/placeholder.svg"}
+                      alt={item.title}
+                      className="w-full h-full object-cover"
+                      style={{ aspectRatio: "2 / 3" }}
+                    />
+                  </div>
+                ) : (
+                  <div className="w-12 h-18 bg-amber-100 rounded-md flex items-center justify-center">
+                    <Box className="w-6 h-6 text-amber-400" />
+                  </div>
+                )}
+              </div>
+
+              <span className="font-medium text-amber-900 text-center break-words">
+  {item.title}
+</span>
+
+
+              {/* Size */}
+              <span className="text-center text-amber-700">{item.size}</span>
+
+              {/* Quantity */}
+              <span className="text-center text-amber-700">×{item.quantity}</span>
+
+              {/* Price */}
+              <span className="text-right font-medium text-amber-900">₹{item.price}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  ) : (
+    <div className="text-amber-500 bg-amber-50 p-4 rounded-lg text-center">
+      No items found
+    </div>
+  )}
 </div>
 
-              </div>
-            ) : (
-              <div className="text-amber-500 bg-amber-50 p-4 rounded-lg text-center">No items found</div>
-            )}
-          </div>
 
           {/* Shipping Details */}
           <div className="bg-white rounded-xl p-5 shadow-md border border-amber-200">

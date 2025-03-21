@@ -110,6 +110,18 @@ function ShoppingHome() {
   useEffect(() => {
     dispatch(getFeatureImages());
   }, [dispatch]);
+  useEffect(() => {
+    // Check URL for product ID parameter when component mounts
+    const searchParams = new URLSearchParams(window.location.search);
+    const productId = searchParams.get("productId");
+  
+    // If product ID is in URL, fetch that product and open dialog
+    if (productId) {
+      dispatch(fetchProductDetails(productId)).then(() => {
+        setOpenDetailsDialog(true);
+      });
+    }
+  }, [dispatch]);
 
 
   const bannerTexts = [
@@ -260,6 +272,15 @@ function ShoppingHome() {
   open={openDetailsDialog}
   setOpen={setOpenDetailsDialog}
   productDetails={productDetails}
+
+  onOpenChange={(isOpen) => {
+    if (!isOpen) {
+      // Remove product ID from URL when dialog closes
+      const url = new URL(window.location);
+      url.searchParams.delete("productId");
+      window.history.replaceState({}, "", url);
+    }
+  }}
 />
 
       

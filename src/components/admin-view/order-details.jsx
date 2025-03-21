@@ -1,5 +1,3 @@
-"use client"
-
 import { useState } from "react"
 import CommonForm from "../common/form"
 import { DialogContent } from "@/components/ui/dialog"

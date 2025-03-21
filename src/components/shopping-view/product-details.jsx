@@ -7,7 +7,8 @@ import { Input } from "../ui/input"
 import { useToast } from "../ui/use-toast"
 import { addToCart, fetchCartItems } from "@/store/shop/cart-slice"
 import { getReviews, addReview } from "@/store/shop/review-slice"
-import { setProductDetails } from "@/store/shop/products-slice";
+import { setProductDetails } from "@/store/shop/products-slice"
+import { ShareButton } from "./share-button"
 
 const StarRating = ({ rating, showCount, count }) => (
   <div className="flex items-center gap-2">
@@ -54,11 +55,55 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
   useEffect(() => {
     if (productDetails?._id) {
       dispatch(getReviews(productDetails._id))
+
+      // Reset selected size whenever product details change
+      setSelectedSize("")
+
+      // Update meta tags for better sharing when dialog opens
+      updateMetaTags()
+
+      // Update URL with product ID without refreshing the page
+      const url = new URL(window.location)
+      url.searchParams.set("productId", productDetails._id)
+      window.history.replaceState({}, "", url)
     }
   }, [dispatch, productDetails])
 
-  const handleAddToCart = () => {
+  // Function to update meta tags for better sharing previews
+  const updateMetaTags = () => {
+    if (!productDetails) return
 
+    const shareUrl = `${window.location.origin}${window.location.pathname}?productId=${productDetails._id}`
+
+    // Create meta tags if they don't exist
+    const metaTags = [
+      { property: "og:title", content: productDetails.title },
+      {
+        property: "og:description",
+        content: `Price: ₹${productDetails.salePrice || productDetails.price} - ${productDetails.description?.substring(0, 100) || "Check out this amazing product!"}`,
+      },
+      { property: "og:image", content: images[0] },
+      { property: "og:url", content: shareUrl },
+      { name: "twitter:card", content: "summary_large_image" },
+    ]
+
+    metaTags.forEach(({ property, name, content }) => {
+      let meta = property
+        ? document.querySelector(`meta[property="${property}"]`)
+        : document.querySelector(`meta[name="${name}"]`)
+
+      if (!meta) {
+        meta = document.createElement("meta")
+        if (property) meta.setAttribute("property", property)
+        if (name) meta.setAttribute("name", name)
+        document.head.appendChild(meta)
+      }
+
+      meta.setAttribute("content", content)
+    })
+  }
+
+  const handleAddToCart = () => {
     if (!selectedSize) {
       toast({ title: "Please select a size", variant: "destructive" })
       return
@@ -95,10 +140,37 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
   }
 
   function handleDialogClose() {
-    setOpen(false);
-    dispatch(setProductDetails());
-    setRating(0);
-    setReviewMsg("");
+    setOpen(false)
+    dispatch(setProductDetails())
+    setRating(0)
+    setReviewMsg("")
+
+    // Reset meta tags when dialog closes
+    resetMetaTags()
+
+    // Remove product ID from URL when dialog closes
+    const url = new URL(window.location)
+    url.searchParams.delete("productId")
+    window.history.replaceState({}, "", url)
+  }
+
+  // Function to reset meta tags when dialog closes
+  const resetMetaTags = () => {
+    const metaTags = [
+      { property: "og:title" },
+      { property: "og:description" },
+      { property: "og:image" },
+      { name: "twitter:card" },
+    ]
+
+    metaTags.forEach(({ property, name }) => {
+      const selector = property ? `meta[property="${property}"]` : `meta[name="${name}"]`
+
+      const meta = document.querySelector(selector)
+      if (meta) {
+        meta.remove()
+      }
+    })
   }
 
   const handleReviewSubmit = (e) => {
@@ -122,14 +194,14 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
       }),
     ).then((data) => {
       if (data.payload.success) {
-        setRating(0);
-        setReviewMsg("");
-        dispatch(getReviews(productDetails?._id));
+        setRating(0)
+        setReviewMsg("")
+        dispatch(getReviews(productDetails?._id))
         toast({
           title: "Review added successfully!",
-        });
+        })
       }
-    });
+    })
   }
 
   const checkDelivery = async () => {
@@ -183,19 +255,18 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                 className="w-full h-full object-contain max-h-[80vh]"
               />
               <button
-  onClick={() => setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1))}
-  className="absolute left-2 top-[55%] -translate-y-1/2 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-amber-800 border border-amber-300 shadow-lg rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200"
->
-  <ChevronLeft className="w-6 h-6 text-amber-700" />
-</button>
+                onClick={() => setCurrentImageIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1))}
+                className="absolute left-2 top-[55%] -translate-y-1/2 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-amber-800 border border-amber-300 shadow-lg rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200"
+              >
+                <ChevronLeft className="w-6 h-6 text-amber-700" />
+              </button>
 
-<button
-  onClick={() => setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1))}
-  className="absolute right-2 top-[55%] -translate-y-1/2 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-amber-800 border border-amber-300 shadow-lg rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200"
->
-  <ChevronRight className="w-6 h-6 text-amber-700" />
-</button>
-
+              <button
+                onClick={() => setCurrentImageIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1))}
+                className="absolute right-2 top-[55%] -translate-y-1/2 bg-gradient-to-r from-amber-500 to-yellow-500 hover:from-amber-600 hover:to-yellow-600 text-amber-800 border border-amber-300 shadow-lg rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-amber-500 focus:border-transparent transition-all duration-200"
+              >
+                <ChevronRight className="w-6 h-6 text-amber-700" />
+              </button>
             </div>
           </div>
 
@@ -258,8 +329,8 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
               </div>
             </div>
 
-                        {/* Delivery */}
-                        <div className="mb-6">
+            {/* Delivery */}
+            <div className="mb-6">
               <h3 className="text-lg font-medium mb-3">Delivery</h3>
               <div className="flex gap-3">
                 <Input
@@ -306,23 +377,30 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
             </div>
 
             {/* Action Buttons */}
-            <div className="flex gap-3 mb-5 mt-6">
-              <Button
-                className="flex-1 bg-[#ff9f00] hover:bg-[#ff9f00]/90 h-14 text-lg"
-                onClick={handleAddToCart}
-                disabled={!productDetails?.totalStock || !selectedSize}
-              >
-                <ShoppingCart className="w-5 h-5 mr-2" />
-                ADD TO CART
-              </Button>
+            <div className="grid grid-cols-1 sm:grid-cols-[1fr_auto] gap-3 mb-5 mt-6">
+              <div className="flex gap-3">
+                <Button
+                  className="flex-1 bg-[#ff9f00] hover:bg-[#ff9f00]/90 h-14 text-lg"
+                  onClick={handleAddToCart}
+                  disabled={!productDetails?.totalStock || !selectedSize}
+                >
+                  <ShoppingCart className="w-5 h-5 mr-2" />
+                  ADD TO CART
+                </Button>
 
-              <Button
-                className="flex-1 bg-[#fb641b] hover:bg-[#fb641b]/90 h-14 text-lg"
-                onClick={handleAddToCart}
-                disabled={!productDetails?.totalStock || !selectedSize}
-              >
-                BUY NOW
-              </Button>
+                <Button
+                  className="flex-1 bg-[#fb641b] hover:bg-[#fb641b]/90 h-14 text-lg"
+                  onClick={handleAddToCart}
+                  disabled={!productDetails?.totalStock || !selectedSize}
+                >
+                  BUY NOW
+                </Button>
+              </div>
+
+              {/* Share Button Component - Now positioned better for mobile */}
+              <div className="flex justify-center sm:justify-end">
+                {productDetails && <ShareButton product={productDetails} />}
+              </div>
             </div>
 
             {/* Bank Offers */}
@@ -356,8 +434,6 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                 </div>
               </div>
             </div>
-
-
 
             {/* Highlights */}
             <div className="mb-6">
@@ -448,7 +524,6 @@ function ProductDetailsDialog({ open, setOpen, productDetails }) {
                   <Button
                     type="submit"
                     disabled={isSubmitting}
-                    
                     className="w-full bg-gradient-to-r from-amber-500 to-yellow-500 text-white hover:from-amber-600 hover:to-yellow-600"
                   >
                     {isSubmitting ? "Submitting..." : "Submit Review"}

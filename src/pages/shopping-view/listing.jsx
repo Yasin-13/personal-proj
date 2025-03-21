@@ -126,6 +126,19 @@ function ShoppingListing() {
     if (productDetails !== null) setOpenDetailsDialog(true)
   }, [productDetails])
 
+  useEffect(() => {
+    // Check URL for product ID parameter when component mounts
+    const searchParams = new URLSearchParams(window.location.search);
+    const productId = searchParams.get("productId");
+  
+    // If product ID is in URL, fetch that product and open dialog
+    if (productId) {
+      dispatch(fetchProductDetails(productId)).then(() => {
+        setOpenDetailsDialog(true);
+      });
+    }
+  }, [dispatch]);
+
   return (
     <div className="p-4 md:p-6 space-y-4">
       <div className="bg-amber-50 rounded-lg shadow-sm border border-amber-300 p-4">
@@ -179,7 +192,14 @@ function ShoppingListing() {
         </div>
       </div>
 
-      <ProductDetailsDialog open={openDetailsDialog} setOpen={setOpenDetailsDialog} productDetails={productDetails} />
+      <ProductDetailsDialog open={openDetailsDialog} setOpen={setOpenDetailsDialog} productDetails={productDetails}  onOpenChange={(isOpen) => {
+    if (!isOpen) {
+      // Remove product ID from URL when dialog closes
+      const url = new URL(window.location);
+      url.searchParams.delete("productId");
+      window.history.replaceState({}, "", url);
+    }
+  }} />
     </div>
   )
 }

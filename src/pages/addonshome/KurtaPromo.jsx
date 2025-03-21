@@ -1,5 +1,3 @@
-"use client";
-
 import React from "react";
 import { Link } from "react-router-dom";
 import DesignerKurta1 from "./sliderimages/m2.jpeg"; 

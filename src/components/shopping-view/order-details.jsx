@@ -1,5 +1,3 @@
-"use client"
-
 import { useSelector } from "react-redux"
 import { FaBox, FaCalendarAlt, FaRupeeSign, FaCreditCard, FaMapMarkerAlt, FaCrown, FaImage } from "react-icons/fa"
 import { Badge } from "@/components/ui/badge"

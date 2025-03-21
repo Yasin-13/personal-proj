@@ -97,19 +97,19 @@ function AdminOrdersView() {
           textColor: "text-green-500",
           label: "Confirmed",
         }
-      case "in process":
+      case "inprocess":
         return {
           icon: <Box className="h-5 w-5" />,
           color: "bg-blue-500",
           textColor: "text-blue-500",
-          label: "In Process",
+          label: "InProcess",
         }
-      case "in shipping":
+      case "inshipping":
         return {
           icon: <Truck className="h-5 w-5" />,
           color: "bg-indigo-500",
           textColor: "text-indigo-500",
-          label: "In Shipping",
+          label: "InShipping",
         }
       case "delivered":
         return {
@@ -254,8 +254,8 @@ function AdminOrdersView() {
                         <SelectItem value="all">All Statuses</SelectItem>
                         <SelectItem value="pending">Pending</SelectItem>
                         <SelectItem value="confirmed">Confirmed</SelectItem>
-                        <SelectItem value="in process">In Process</SelectItem>
-                        <SelectItem value="in shipping">In Shipping</SelectItem>
+                        <SelectItem value="inprocess">In Process</SelectItem>
+                        <SelectItem value="inshipping">In Shipping</SelectItem>
                         <SelectItem value="delivered">Delivered</SelectItem>
                         <SelectItem value="rejected">Rejected</SelectItem>
                       </SelectContent>
@@ -302,8 +302,8 @@ function AdminOrdersView() {
                 <SelectItem value="all">All Statuses</SelectItem>
                 <SelectItem value="pending">Pending</SelectItem>
                 <SelectItem value="confirmed">Confirmed</SelectItem>
-                <SelectItem value="in process">In Process</SelectItem>
-                <SelectItem value="in shipping">In Shipping</SelectItem>
+                <SelectItem value="inprocess">In Process</SelectItem>
+                <SelectItem value="inshipping">In Shipping</SelectItem>
                 <SelectItem value="delivered">Delivered</SelectItem>
                 <SelectItem value="rejected">Rejected</SelectItem>
               </SelectContent>
@@ -337,11 +337,11 @@ function AdminOrdersView() {
             <TabsTrigger value="confirmed" className="data-[state=active]:bg-amber-500 data-[state=active]:text-white">
               Confirmed
             </TabsTrigger>
-            <TabsTrigger value="in process" className="data-[state=active]:bg-amber-500 data-[state=active]:text-white">
+            <TabsTrigger value="inprocess" className="data-[state=active]:bg-amber-500 data-[state=active]:text-white">
               In Process
             </TabsTrigger>
             <TabsTrigger
-              value="in shipping"
+              value="inshipping"
               className="data-[state=active]:bg-amber-500 data-[state=active]:text-white"
             >
               In Shipping
@@ -437,7 +437,7 @@ function AdminOrdersView() {
           </TabsContent>
 
           {/* Status-specific tabs */}
-          {["pending", "confirmed", "in process", "in shipping", "delivered", "rejected"].map((status) => (
+          {["pending", "confirmed", "inprocess", "inshipping", "delivered", "rejected"].map((status) => (
             <TabsContent key={status} value={status} className="mt-4">
               <Card className="border-amber-300">
                 <CardHeader className="bg-gradient-to-r from-amber-50 to-yellow-50 border-b border-amber-200">
@@ -516,8 +516,8 @@ function AdminOrdersView() {
                     <div className="text-center py-12 bg-amber-50">
                       {status === "pending" && <Clock className="h-12 w-12 text-amber-300 mx-auto mb-4" />}
                       {status === "confirmed" && <CheckCircle className="h-12 w-12 text-green-300 mx-auto mb-4" />}
-                      {status === "in process" && <Box className="h-12 w-12 text-blue-300 mx-auto mb-4" />}
-                      {status === "in shipping" && <Truck className="h-12 w-12 text-indigo-300 mx-auto mb-4" />}
+                      {status === "inprocess" && <Box className="h-12 w-12 text-blue-300 mx-auto mb-4" />}
+                      {status === "inshipping" && <Truck className="h-12 w-12 text-indigo-300 mx-auto mb-4" />}
                       {status === "delivered" && <PackageCheck className="h-12 w-12 text-emerald-300 mx-auto mb-4" />}
                       {status === "rejected" && <XCircle className="h-12 w-12 text-red-300 mx-auto mb-4" />}
 

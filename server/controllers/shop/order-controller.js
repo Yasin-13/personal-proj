@@ -192,21 +192,16 @@ try {
     .container { max-width: 600px; margin: 0 auto; padding: 20px; }
     .header { background-color: #4a154b; color: white; padding: 15px; text-align: center; border-radius: 5px 5px 0 0; }
     .content { border: 1px solid #ddd; border-top: none; padding: 20px; border-radius: 0 0 5px 5px; }
-    .order-info, .address-info { background-color: #f9f9f9; padding: 15px; margin-bottom: 20px; border-radius: 5px; word-wrap: break-word; }
+    .order-info, .address-info, .store-info { background-color: #f9f9f9; padding: 15px; margin-bottom: 20px; border-radius: 5px; word-wrap: break-word; }
     
     /* Table Styling */
     table { width: 100%; border-collapse: collapse; margin-bottom: 20px; table-layout: fixed; }
     th, td { padding: 10px; border-bottom: 1px solid #ddd; font-size: 14px; word-wrap: break-word; text-align: center; }
     th { background-color: #f2f2f2; font-size: 14px; }
     
-    /* Column Widths (Fixing Out-of-the-box issue) */
-    .col-product { width: 30%; text-align: left; }
-    .col-image { width: 12%; }
-    .col-price, .col-size, .col-qty, .col-total { width: 12%; }
-
     /* Image Styling */
     .product-image { width: 50px; height: 75px; object-fit: cover; border-radius: 5px; }
-
+    
     /* Total Row Styling */
     .total-row { font-weight: bold; background-color: #f2f2f2; text-align: right; }
     
@@ -215,14 +210,12 @@ try {
     .digital-signature { text-align: right; margin-top: 20px; }
     .signature-name { font-weight: bold; margin-top: 5px; }
     .receipt-notice { background-color: #f9f9f9; padding: 10px; border-radius: 5px; margin-top: 20px; font-size: 12px; text-align: center; }
-
+    
     /* Responsive Fixes */
     @media screen and (max-width: 480px) {
       .container { padding: 10px; }
       table, th, td { font-size: 12px; padding: 5px; }
       .product-image { width: 40px; height: 60px; }
-      .col-product { width: 40%; } /* More space for product names */
-      .col-image, .col-price, .col-size, .col-qty, .col-total { width: 10%; }
     }
   </style>
 </head>
@@ -239,7 +232,16 @@ try {
         <p><strong>Payment Method:</strong> ${order.paymentMethod || 'Not specified'}</p>
         <p><strong>Payment Status:</strong> ${order.paymentStatus}</p>
         <p><strong>Order Status:</strong> ${order.orderStatus}</p>
-        <p><strong>Store:</strong> Nitin Readymade</p>
+      </div>
+      
+      <div class="store-info">
+        <h3>Store Information</h3>
+        <p><strong>Store Name:</strong> Nitin Readymade</p>
+        <p><strong>Contact:</strong></p>
+        <p>Nitin S: +91 99672 62511</p>
+        <p>Mayaram S: +91 98922 91782</p>
+        <p>Email: nitinreadymade@gmail.com</p>
+        <p><strong>Address:</strong> Shop No. 13, Om Datta Co, Khambdev Nagar, Dharavi, Mumbai - 400017 (Opposite Hsg. Society).</p>
       </div>
       
       <div class="address-info">
@@ -255,23 +257,23 @@ try {
       <h3>Purchase Details</h3>
       <table>
         <tr>
-          <th class="col-product">Product</th>
-          <th class="col-image">Image</th>
-          <th class="col-price">Price</th>
-          <th class="col-size">Size</th>
-          <th class="col-qty">Quantity</th>
-          <th class="col-total">Total</th>
+          <th>Product</th>
+          <th>Image</th>
+          <th>Price</th>
+          <th>Size</th>
+          <th>Quantity</th>
+          <th>Total</th>
         </tr>
         ${order.cartItems.map(item => ` 
           <tr>
-            <td class="col-product">${item.title || 'Product'}</td>
-            <td class="col-image">
+            <td>${item.title || 'Product'}</td>
+            <td>
               ${item.image ? `<img src="${item.image}" class="product-image" alt="${item.title}">` : 'No image'}
             </td>
-            <td class="col-price">₹${item.price || '0'}</td>
-            <td class="col-size">${item.size || 'NA'}</td>
-            <td class="col-qty">${item.quantity || '0'}</td>
-            <td class="col-total">₹${(parseFloat(item.price || 0) * (item.quantity || 0)).toFixed(2)}</td>
+            <td>₹${item.price || '0'}</td>
+            <td>${item.size || 'NA'}</td>
+            <td>${item.quantity || '0'}</td>
+            <td>₹${(parseFloat(item.price || 0) * (item.quantity || 0)).toFixed(2)}</td>
           </tr>
         `).join('')}
         <tr class="total-row">
@@ -304,6 +306,7 @@ try {
   </div>
 </body>
 </html>
+
 
   `;
 
